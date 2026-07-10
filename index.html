@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Interactif - BUT TC</title>
+    <style>
+        /* Styles Globaux & Thème EDF Corporate */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f4f7f6;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #005bbb; /* Bleu EDF */
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #004a99;
+            padding: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        section {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h2 {
+            color: #005bbb;
+            border-bottom: 2px solid #005bbb;
+            padding-bottom: 10px;
+        }
+        /* Jauges de compétences */
+        .skill-container {
+            margin-bottom: 15px;
+        }
+        .skill-bar {
+            background-color: #ddd;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .skill-progress {
+            background-color: #005bbb;
+            color: white;
+            padding: 5px;
+            text-align: right;
+            font-size: 14px;
+            font-weight: bold;
+            transition: width 1s ease-in-out;
+        }
+        /* Calculateur de ROI */
+        .calculator {
+            background: #eef5fc;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #005bbb;
+        }
+        .calc-group {
+            margin-bottom: 15px;
+        }
+        .calc-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .calc-group input[type="range"] {
+            width: 100%;
+        }
+        .calc-val {
+            font-weight: bold;
+            color: #004a99;
+        }
+        .roi-result {
+            font-size: 24px;
+            font-weight: bold;
+            color: #28a745;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Portfolio Numérique – Soutenance BUT TC</h1>
+        <p>Présentation de mon parcours et de la financiarisation de mes missions chez EDF</p>
+    </header>
+
+    <nav>
+        <a href="#accueil">Accueil</a>
+        <a href="#competences">Dashboard Compétences</a>
+        <a href="#edf">Projet EDF & ROI</a>
+    </nav>
+
+    <section id="accueil">
+        <h2>1. Mon Parcours (En route vers le Master DAF)</h2>
+        <p>Actuellement en 3ème année de <strong>BUT Technique de Commercialisation (TC)</strong>, j'ai réalisé mon alternance au sein d'<strong>EDF</strong>. Cette page a pour but de démontrer ma rigueur analytique et mon appétence pour la gestion financière, faisant le pont entre mes compétences commerciales acquises et mes ambitions futures.</p>
+    </section>
+
+    <section id="competences">
+        <h2>2. Dashboard de Compétences Analytiques</h2>
+        <p>Voici un aperçu de mes compétences clés. Bien que issu d'un parcours commercial (TC), j'ai fortement développé mes compétences de gestion de données et d'analyse chiffrée :</p>
+        
+        <div class="skill-container">
+            <label>Analyse Budgétaire & Chiffrée (Sensibilité DAF)</label>
+            <div class="skill-bar"><div class="skill-progress" style="width: 80%;">80%</div></div>
+        </div>
+        <div class="skill-container">
+            <label>Négociation de Contrats & Relation Client B2B</label>
+            <div class="skill-bar"><div class="skill-progress" style="width: 85%;">85%</div></div>
+        </div>
+        <div class="skill-container">
+            <label>Suivi des KPIs & Marketing de Performance</label>
+            <div class="skill-bar"><div class="skill-progress" style="width: 90%;">90%</div></div>
+        </div>
+        <div class="skill-container">
+            <label>Rigueur & Analyse de données (Excel / CRM)</label>
+            <div class="skill-bar"><div class="skill-progress" style="width: 75%;">75%</div></div>
+        </div>
+    </section>
+
+    <section id="edf">
+        <h2>3. Étude de Cas EDF : Simulateur de ROI Énergétique</h2>
+        <p>Lors de mes missions de renégociation de contrats d'efficacité énergétique, mon rôle commercial consistait à prouver la rentabilité financière des solutions proposées. <strong>Faites varier les curseurs ci-dessous pendant l'oral pour simuler le gain financier pour le client :</strong></p>
+        
+        <div class="calculator">
+            <div class="calc-group">
+                <label>Budget de l'investissement initial : <span id="valBudget" class="calc-val">50</span> k€</label>
+                <input type="range" id="inputBudget" min="10" max="200" value="50" step="5" oninput="calculerLeROI()">
+            </div>
+            
+            <div class="calc-group">
+                <label>Économies d'énergie générées (Gains cumulés) : <span id="valGains" class="calc-val">80</span> k€</label>
+                <input type="range" id="inputGains" min="10" max="400" value="80" step="5" oninput="calculerLeROI()">
+            </div>
+
+            <div class="roi-result">
+                ROI Projeté : <span id="resultatROI">60.00 %</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Fonction de calcul dynamique du ROI pour l'oral de BUT TC
+        function calculerLeROI() {
+            // Récupération des valeurs des sliders
+            const budget = parseFloat(document.getElementById('inputBudget').value);
+            const gains = parseFloat(document.getElementById('inputGains').value);
+
+            // Mise à jour des textes en direct à l'écran
+            document.getElementById('valBudget').innerText = budget;
+            document.getElementById('valGains').innerText = gains;
+
+            // Calcul du Return on Investment (ROI)
+            if (budget > 0) {
+                const roi = ((gains - budget) / budget) * 100;
+                
+                // Affichage du résultat formaté
+                const elementROI = document.getElementById('resultatROI');
+                elementROI.innerText = roi.toFixed(2) + " %";
+
+                // Changement de couleur dynamique selon la rentabilité
+                if (roi > 0) {
+                    elementROI.style.color = "#28a745"; // Vert si rentable
+                } else {
+                    elementROI.style.color = "#dc3545"; // Rouge si perte
+                }
+            }
+        }
+        
+        // Calcul initial au chargement de la page
+        calculerLeROI();
+    </script>
+</body>
+</html>
