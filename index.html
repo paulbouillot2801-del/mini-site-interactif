@@ -1,676 +1,1089 @@
 <!DOCTYPE html>
+<!--
+  ============================================================================
+  Portfolio numérique interactif — Soutenance BUT Techniques de Commercialisation
+  @author Paul Bouillot
+  Hébergement : GitHub Pages (fichier unique, HTML + CSS + JS)
+  Fichiers du dépôt : index.html + photo-paul.jpg.JPG (ne pas renommer)
+  ============================================================================
+-->
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soutenance BUT TC - Paul Bouillot</title>
-    <style>
-        /* ==========================================================================
-           1. CHARTE GRAPHIQUE - THÈME CORPORATE EDF & ACCENTS PREMIUM
-           ========================================================================== */
-        :root {
-            --edf-blue-dark: #0A2647;  /* Bleu marine institutionnel : titres, header */
-            --edf-blue: #0072CE;       /* Bleu EDF : accents, actifs, CTA */
-            --edf-blue-pale: #EAF3FC;  /* Fond de puces / badges */
-            --gray-bg: #F5F7FA;        /* Fond général de page */
-            --gray-line: #E3E7EC;      /* Séparateurs, bordures discrètes */
-            --white: #FFFFFF;
-            --ink: #1B1F24;            /* Texte principal */
-            --muted: #5B6472;          /* Texte secondaire */
-            --success: #1A8A55;        /* Vert : ROI positif / statut terminé */
-            --success-bg: #E7F5EC;
-            --danger: #C6362E;         /* Rouge : ROI négatif */
-            --danger-bg: #FBEAE9;
-            --gold: #A8791F;           /* Accent "médaille" sobre */
-            --gold-bg: #FBF3E4;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paul Bouillot — Portfolio Numérique BUT TC</title>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
+  /* ==========================================================================
+     1. TOKENS — palette et typographie inspirées de l'identité visuelle EDF
+     ========================================================================== */
+  :root{
+    --edf-blue-dark:   #0A2647; /* bleu marine institutionnel : titres, header */
+    --edf-blue:        #0072CE; /* bleu EDF : accents, actifs, CTA            */
+    --edf-blue-pale:   #EAF3FC; /* fond de puces / badges                     */
+    --gray-bg:         #F5F7FA; /* fond général de page                      */
+    --gray-line:       #E3E7EC; /* séparateurs, bordures discrètes           */
+    --white:           #FFFFFF;
+    --ink:             #1B1F24; /* texte principal                          */
+    --muted:           #5B6472; /* texte secondaire                         */
+    --success:         #1A8A55; /* ROI positif / statut terminé              */
+    --success-bg:      #E7F5EC;
+    --danger:          #C6362E; /* ROI négatif                               */
+    --danger-bg:       #FBEAE9;
+    --gold:            #A8791F; /* accent "médaille" sobre                   */
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--gray-bg);
-            color: var(--ink);
-            line-height: 1.5;
-            padding-bottom: 60px;
-        }
+    --radius-s: 8px;
+    --radius-m: 14px;
+    --shadow-card: 0 1px 2px rgba(10,38,71,0.06), 0 6px 20px rgba(10,38,71,0.06);
+    --font-ui: -apple-system, "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+  }
 
-        /* ==========================================================================
-           2. HEADER & NAVIGATION PAR ONGLETS (SANS RECHARGEMENT)
-           ========================================================================== */
-        header {
-            background-color: var(--edf-blue-dark);
-            color: var(--white);
-            text-align: center;
-            padding: 35px 20px;
-            border-bottom: 4px solid var(--edf-blue);
-        }
+  *{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
 
-        header h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            letter-spacing: -0.5px;
-        }
+  body{
+    font-family: var(--font-ui);
+    background: var(--gray-bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
 
-        header p {
-            color: rgba(255, 255, 255, 0.85);
-            font-size: 1.1rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 
-        nav {
-            background-color: var(--white);
-            border-bottom: 1px solid var(--gray-line);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            flex-wrap: wrap;
-        }
+  a{ color: inherit; }
+  h1,h2,h3{ margin:0; color: var(--edf-blue-dark); }
 
-        .tab-btn {
-            background: none;
-            border: none;
-            outline: none;
-            padding: 18px 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--muted);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border-bottom: 3px solid transparent;
-        }
+  /* ==========================================================================
+     2. STRUCTURE GÉNÉRALE — header + navigation par onglets (5 pages)
+     ========================================================================== */
+  .site-header{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--edf-blue-dark);
+    color: var(--white);
+    padding: 16px 24px;
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    box-shadow: 0 2px 14px rgba(10,38,71,0.25);
+  }
 
-        .tab-btn:hover {
-            color: var(--edf-blue);
-        }
+  .site-header .identity h1{
+    color: var(--white);
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+  .site-header .identity p{
+    margin: 2px 0 0;
+    font-size: 0.82rem;
+    color: #BFD6F2;
+    font-weight: 500;
+  }
 
-        .tab-btn.active {
-            color: var(--edf-blue);
-            border-bottom-color: var(--edf-blue);
-        }
+  nav.tabs{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    background: rgba(255,255,255,0.08);
+    padding: 4px;
+    border-radius: 999px;
+  }
+  nav.tabs button{
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #CFE1F5;
+    background: transparent;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  nav.tabs button:hover{ color: var(--white); }
+  nav.tabs button.active{
+    background: var(--white);
+    color: var(--edf-blue-dark);
+  }
+  nav.tabs button:focus-visible{
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+  }
 
-        /* STRUCTURE CONTAINER */
-        main {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
+  main{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
 
-        /* GESTION DE L'AFFICHAGE DES PAGES */
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.4s ease;
-        }
+  /* Chaque "page" est une section basculée en JS, sans rechargement */
+  .page{ display: none; }
+  .page.active{
+    display: block;
+    animation: fadeIn 0.35s ease;
+  }
+  @keyframes fadeIn{
+    from{ opacity: 0; transform: translateY(8px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
 
-        .tab-content.active {
-            display: block;
-        }
+  .eyebrow{
+    display:inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--edf-blue);
+    background: var(--edf-blue-pale);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+  section.block{ margin-bottom: 52px; }
+  section.block h2{
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    margin-bottom: 18px;
+  }
 
-        /* CARD STYLE */
-        .card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 30px;
-            border: 1px solid var(--gray-line);
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
-        }
+  .card{
+    background: var(--white);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-card);
+    padding: 24px 26px;
+  }
 
-        .card h3 {
-            color: var(--edf-blue-dark);
-            margin-bottom: 15px;
-            font-size: 1.25rem;
-            border-bottom: 2px solid var(--edf-blue-pale);
-            padding-bottom: 8px;
-        }
+  /* ==========================================================================
+     3. PAGE 1 — QUI SUIS-JE ?
+     ========================================================================== */
+  .profile-hero{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: center;
+    margin-bottom: 40px;
+  }
 
-        /* ==========================================================================
-           PAGE 1 : ACCUEIL
-           ========================================================================== */
-        .profile-container {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            background: var(--white);
-            padding: 35px;
-            border-radius: 12px;
-            border: 1px solid var(--gray-line);
-            margin-bottom: 25px;
-        }
+  /* Avatar rond avec bordure bleue EDF, à partir de photo-paul.jpg.JPG */
+  .avatar-wrap{
+    flex: 0 0 auto;
+    text-align: center;
+  }
+  .avatar-wrap img{
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--edf-blue);
+    box-shadow: var(--shadow-card);
+    display: block;
+    background: var(--edf-blue-pale); /* fond visible tant que l'image charge */
+  }
 
-        .profile-pic {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--edf-blue);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
-            flex-shrink: 0;
-        }
+  .profile-intro{ flex: 1 1 320px; }
+  .profile-intro h2{
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    margin-bottom: 6px;
+  }
+  .profile-intro .subtitle{
+    color: var(--edf-blue);
+    font-weight: 600;
+    font-size: 0.98rem;
+    margin-bottom: 14px;
+  }
+  .profile-intro p{
+    color: var(--muted);
+    max-width: 62ch;
+    margin: 0 0 10px;
+  }
 
-        .profile-info h2 {
-            font-size: 1.6rem;
-            color: var(--edf-blue-dark);
-            margin-bottom: 8px;
-        }
+  .objective-card{
+    border-left: 4px solid var(--edf-blue);
+    background: var(--white);
+    border-radius: 0 var(--radius-m) var(--radius-m) 0;
+    padding: 20px 24px;
+    box-shadow: var(--shadow-card);
+  }
+  .objective-card .tag-role{
+    display:inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--edf-blue);
+    background: var(--edf-blue-pale);
+    padding: 3px 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+  .objective-card p{ margin: 0; color: var(--ink); font-size: 1.02rem; font-weight: 500; }
 
-        .badge {
-            display: inline-block;
-            background-color: var(--edf-blue-pale);
-            color: var(--edf-blue);
-            font-weight: 700;
-            font-size: 0.8rem;
-            padding: 4px 10px;
-            border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 15px;
-        }
+  /* ==========================================================================
+     4. PAGE 2 — MON PARCOURS (timeline horizontale en 3 étapes)
+     ========================================================================== */
+  .parcours-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .parcours-card{
+    background: var(--white);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-card);
+    padding: 22px 24px;
+    position: relative;
+  }
+  .parcours-card .step-number{
+    display:inline-flex;
+    align-items:center; justify-content:center;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--edf-blue-pale);
+    color: var(--edf-blue);
+    font-weight: 800;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+  }
+  .parcours-card.is-target .step-number{
+    background: #FBF3E4;
+    color: var(--gold);
+  }
+  .parcours-card h3{
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .parcours-card p{
+    color: var(--muted);
+    font-size: 0.92rem;
+    margin: 0;
+  }
+  .parcours-card ul{
+    margin: 8px 0 0;
+    padding-left: 18px;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .parcours-arrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--gray-line);
+  }
+  @media (max-width: 900px){ .parcours-arrow{ display:none; } }
 
-        /* ==========================================================================
-           PAGE 2 : TIMELINE PARCOURS
-           ========================================================================== */
-        .timeline {
-            position: relative;
-            padding-left: 20px;
-            border-left: 2px solid var(--edf-blue-pale);
-        }
+  /* ==========================================================================
+     5. PAGE 3 — MISSIONS & ÉTUDE DE CAS EDF
+     ========================================================================== */
+  .missions-list{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
+    margin-bottom: 44px;
+  }
+  .mission-chip{
+    background: var(--white);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-s);
+    padding: 16px 18px;
+    box-shadow: var(--shadow-card);
+    font-size: 0.9rem;
+    color: var(--ink);
+    display:flex;
+    gap: 10px;
+    align-items:flex-start;
+  }
+  .mission-chip svg{
+    flex: 0 0 auto;
+    width: 20px; height: 20px;
+    color: var(--edf-blue);
+    margin-top: 2px;
+  }
 
-        .timeline-item {
-            position: relative;
-            margin-bottom: 25px;
-        }
+  .case-title{
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--edf-blue-dark);
+    margin-bottom: 8px;
+  }
+  .case-context{
+    color: var(--muted);
+    font-size: 0.96rem;
+    max-width: 76ch;
+    margin-bottom: 28px;
+  }
+  .case-context strong{ color: var(--ink); }
 
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -27px;
-            top: 6px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: var(--edf-blue);
-            border: 2px solid var(--white);
-        }
+  .mini-kpi-row{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .mini-kpi{
+    background: var(--white);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-s);
+    padding: 16px 18px;
+    box-shadow: var(--shadow-card);
+  }
+  .mini-kpi .value{
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--edf-blue-dark);
+    font-variant-numeric: tabular-nums;
+  }
+  .mini-kpi .label{
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
 
-        .timeline-date {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--edf-blue);
-        }
+  .pipeline{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 38px;
+  }
+  .pipeline-step{
+    flex: 1 1 150px;
+    background: var(--white);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-s);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-card);
+    display:flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .status-dot{
+    display:inline-flex;
+    align-items:center;
+    gap: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .status-dot::before{
+    content:"";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+  .status-dot.done{ color: var(--success); }
+  .status-dot.done::before{ background: var(--success); }
+  .status-dot.recurring{ color: var(--edf-blue); }
+  .status-dot.recurring::before{
+    background: var(--edf-blue);
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ box-shadow: 0 0 0 0 rgba(0,114,206,0.35); }
+    50%{ box-shadow: 0 0 0 5px rgba(0,114,206,0); }
+  }
+  .pipeline-step .step-title{
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
 
-        .timeline-title {
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: var(--edf-blue-dark);
-        }
+  /* Simulateur ROI */
+  .simulator{
+    background: var(--white);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-card);
+    padding: 26px 28px;
+  }
+  .simulator h3{ font-size: 1.05rem; margin-bottom: 6px; }
+  .simulator .sub{ color: var(--muted); font-size: 0.87rem; margin-bottom: 22px; }
 
-        /* ==========================================================================
-           PAGE 3 : MISSIONS & ÉTUDE DE CAS
-           ========================================================================== */
-        .project-meta {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            background: var(--gray-bg);
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 15px;
-            border: 1px solid var(--gray-line);
-        }
+  .slider-group{ margin-bottom: 24px; }
+  .slider-group .slider-label{
+    display:flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .slider-group .slider-label .val{
+    color: var(--edf-blue);
+    font-variant-numeric: tabular-nums;
+  }
+  input[type="range"]{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: var(--gray-line);
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--edf-blue);
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(10,38,71,0.3);
+  }
+  input[type="range"]::-moz-range-thumb{
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--edf-blue);
+    cursor: pointer;
+  }
 
-        .meta-item strong {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--muted);
-            text-transform: uppercase;
-        }
+  .result-box{
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--gray-bg);
+    border-radius: var(--radius-s);
+    padding: 18px 20px;
+    margin-top: 4px;
+  }
+  .result-box .result-label{
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .result-box .result-value{
+    font-size: 1.9rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.3s ease;
+  }
+  .result-value.positive{ color: var(--success); }
+  .result-value.negative{ color: var(--danger); }
+  .result-tag{
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .result-tag.positive{ background: var(--success-bg); color: var(--success); }
+  .result-tag.negative{ background: var(--danger-bg); color: var(--danger); }
 
-        .meta-item span {
-            font-weight: 700;
-            color: var(--edf-blue-dark);
-        }
+  /* ==========================================================================
+     6. PAGE 4 — COMPÉTENCES & EXCELLENCE ACADÉMIQUE
+     ========================================================================== */
+  .kpi-row{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+    margin-bottom: 44px;
+  }
+  .kpi-card{
+    background: var(--edf-blue-dark);
+    color: var(--white);
+    border-radius: var(--radius-m);
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card.gold{ background: linear-gradient(155deg, var(--edf-blue-dark) 55%, #3B2C0E 140%); }
+  .kpi-card.wink{ background: linear-gradient(155deg, var(--edf-blue-dark) 55%, #1F3A2E 140%); }
+  .kpi-card .icon{
+    width: 34px; height: 34px;
+    margin-bottom: 12px;
+    color: #9FC6EC;
+  }
+  .kpi-card.gold .icon{ color: #E7C878; }
+  .kpi-card.wink .icon{ color: #8FD9AE; }
+  .kpi-number{
+    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.4px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .kpi-label{
+    font-size: 0.82rem;
+    color: #C7DAF0;
+    font-weight: 500;
+  }
 
-        /* CALCULATEUR ROI */
-        .calculator-card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 30px;
-            border: 2px solid var(--edf-blue);
-            margin-top: 25px;
-            box-shadow: 0 8px 24px rgba(0, 114, 206, 0.08);
-        }
+  .skills-columns{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
 
-        .calculator-card h4 {
-            color: var(--edf-blue-dark);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            text-align: center;
-        }
+  .skills-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .skill-card{
+    background: var(--white);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-m);
+    padding: 16px 18px;
+    box-shadow: var(--shadow-card);
+  }
+  .skill-card .top-row{
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .skill-card h3{
+    font-size: 0.9rem;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .skill-card .score{
+    font-weight: 800;
+    color: var(--edf-blue);
+    font-variant-numeric: tabular-nums;
+    font-size: 0.92rem;
+  }
+  .bar-track{
+    height: 8px;
+    border-radius: 999px;
+    background: var(--gray-line);
+    overflow: hidden;
+  }
+  .bar-fill{
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--edf-blue), var(--edf-blue-dark));
+    transition: width 1s cubic-bezier(.2,.8,.2,1);
+  }
 
-        .control-group {
-            margin-bottom: 25px;
-        }
+  .chip-group{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip{
+    background: var(--edf-blue-pale);
+    color: var(--edf-blue-dark);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+  }
+  .chip.outline{
+    background: var(--white);
+    border: 1px solid var(--gray-line);
+    color: var(--ink);
+  }
+  h4.sub-heading{
+    font-size: 0.95rem;
+    color: var(--edf-blue-dark);
+    margin: 0 0 12px;
+  }
 
-        .control-label {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
+  /* ==========================================================================
+     7. PAGE 5 — PROJET PROFESSIONNEL
+     ========================================================================== */
+  .project-grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .project-card{
+    background: var(--white);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-card);
+    padding: 22px 24px;
+  }
+  .project-card h3{
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  .project-card p, .project-card li{
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .project-card ul{ margin: 0; padding-left: 18px; }
 
-        .control-label span {
-            color: var(--edf-blue);
-        }
+  .closing-quote{
+    margin-top: 32px;
+    border-left: 4px solid var(--edf-blue);
+    background: var(--white);
+    border-radius: 0 var(--radius-m) var(--radius-m) 0;
+    padding: 20px 24px;
+    box-shadow: var(--shadow-card);
+    color: var(--edf-blue-dark);
+    font-size: 1.02rem;
+    font-weight: 500;
+  }
 
-        input[type="range"] {
-            width: 100%;
-            height: 6px;
-            border-radius: 3px;
-            background: var(--gray-line);
-            outline: none;
-            -webkit-appearance: none;
-        }
+  footer.site-footer{
+    text-align:center;
+    color: var(--muted);
+    font-size: 0.78rem;
+    padding: 20px;
+  }
 
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--edf-blue);
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-
-        .roi-display-container {
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .roi-display-container.positive {
-            background: var(--success-bg);
-            border: 1px solid var(--success);
-        }
-
-        .roi-display-container.negative {
-            background: var(--danger-bg);
-            border: 1px solid var(--danger);
-        }
-
-        .roi-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 5px;
-        }
-
-        .roi-display-container.positive .roi-title { color: var(--success); }
-        .roi-display-container.negative .roi-title { color: var(--danger); }
-
-        .roi-number {
-            font-size: 2.2rem;
-            font-weight: 800;
-        }
-
-        .roi-display-container.positive .roi-number { color: var(--success); }
-        .roi-display-container.negative .roi-number { color: var(--danger); }
-
-        /* ==========================================================================
-           PAGE 4 : KPI GRID & COMPÉTENCES
-           ========================================================================== */
-        .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .kpi-card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 25px;
-            border: 1px solid var(--gray-line);
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-            transition: transform 0.2s ease;
-        }
-
-        .kpi-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .kpi-card.highlight {
-            border: 2px solid var(--gold);
-            background: var(--gold-bg);
-        }
-
-        .kpi-icon {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .kpi-value {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--edf-blue-dark);
-            margin-bottom: 5px;
-        }
-
-        .kpi-card.highlight .kpi-value {
-            color: var(--gold);
-        }
-
-        .kpi-label {
-            font-size: 0.85rem;
-            color: var(--muted);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .skills-list {
-            list-style: none;
-        }
-
-        .skills-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid var(--gray-line);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .skills-list li span.badge-skill {
-            background-color: var(--edf-blue-pale);
-            color: var(--edf-blue);
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-weight: 700;
-        }
-
-        @media (max-width: 768px) {
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  @media (max-width: 640px){
+    .site-header{ flex-direction: column; align-items: flex-start; }
+    nav.tabs{ width: 100%; }
+    nav.tabs button{ flex:1; text-align:center; padding: 8px 4px; }
+    .profile-hero{ flex-direction: column; text-align:center; }
+  }
+</style>
 </head>
 <body>
 
-    <!-- HEADER COMMUN -->
-    <header>
-        <h1>Paul Bouillot</h1>
-        <p>Soutenance de Portfolio Numérique • BUT Technique de Commercialisation</p>
-    </header>
-
-    <!-- ONGLETS DE NAVIGATION (Basés sur ta trame) -->
-    <nav>
-        <button class="tab-btn active" onclick="switchTab('accueil')">1. Qui suis-je ?</button>
-        <button class="tab-btn" onclick="switchTab('parcours')">2. Mon Parcours</button>
-        <button class="tab-btn" onclick="switchTab('missions')">3. Missions & Cas EDF</button>
-        <button class="tab-btn" onclick="switchTab('competences')">4. Compétences & Excellence</button>
-        <button class="tab-btn" onclick="switchTab('projet')">5. Projet Pro</button>
+  <!-- ==========================================================================
+       HEADER + NAVIGATION PAR ONGLETS (5 pages, sans rechargement)
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="identity">
+      <h1>Paul Bouillot</h1>
+      <p>Portfolio Numérique — Soutenance BUT Techniques de Commercialisation</p>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Navigation du portfolio">
+      <button role="tab" aria-selected="true"  class="active" data-target="page-qui-suis-je">Qui suis-je ?</button>
+      <button role="tab" aria-selected="false" data-target="page-parcours">Mon parcours</button>
+      <button role="tab" aria-selected="false" data-target="page-missions">Missions &amp; étude de cas</button>
+      <button role="tab" aria-selected="false" data-target="page-competences">Compétences</button>
+      <button role="tab" aria-selected="false" data-target="page-projet">Projet professionnel</button>
     </nav>
+  </header>
 
-    <main>
-
-        <!-- ==========================================================================
-             PAGE 1 : QUI SUIS-JE ? (1 min d'oral)
-             ========================================================================== -->
-        <div id="accueil" class="tab-content active">
-            <div class="profile-container">
-                <img src="photo-paul.jpg.JPG" alt="Portrait Professionnel de Paul Bouillot" class="profile-pic">
-                <div class="profile-info">
-                    <span class="badge">Alternant EDF • Majeur de Promo</span>
-                    <h2>Présentation Générale</h2>
-                    <p style="color: var(--muted); margin-bottom: 15px;">Étudiant en 3ème année de BUT Technique de Commercialisation (TC)</p>
-                    <p>Rigoureux, analytique et passionné par les chiffres, j'ai réalisé mon alternance au sein d'EDF. Mon objectif est d'associer mon bagage commercial au pilotage de la performance financière en intégrant un Master en Finance d'Entreprise / DAF.</p>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>💡 Mon Objectif Professionnel</h3>
-                <p style="margin-bottom: 15px;"><strong>Pourquoi la finance ?</strong> La finance d'entreprise est le moteur de décision stratégique. Mon profil me permet de faire le pont entre la performance commerciale opérationnelle et la modélisation financière.</p>
-                <p><strong>Les métiers cibles :</strong></p>
-                <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
-                    <span class="badge" style="background-color: var(--edf-blue-dark); color: white;">Analyse Financière</span>
-                    <span class="badge" style="background-color: var(--edf-blue-dark); color: white;">Contrôle de Gestion</span>
-                    <span class="badge" style="background-color: var(--edf-blue-dark); color: white;">Finance d'Entreprise</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==========================================================================
-             PAGE 2 : MON PARCOURS (1 min d'oral)
-             ========================================================================== -->
-        <div id="parcours" class="tab-content">
-            <div class="card">
-                <h3>🎓 Formation : Le BUT Techniques de Commercialisation</h3>
-                <p style="margin-bottom: 15px;">Le BUT TC m’a apporté une polyvalence essentielle : la maîtrise de la négociation B2B, la compréhension des enjeux clients, et la gestion rigoureuse de projets complexes.</p>
-                <p>C'est au travers des matières analytiques (calcul de marge, comptabilité, gestion budgétaire) que j'ai développé une appétence pour la rigueur des chiffres, confirmée par mes résultats académiques de premier plan.</p>
-            </div>
-
-            <div class="card">
-                <h3>⚡ Pourquoi EDF & Mon Alternance</h3>
-                <p style="margin-bottom: 15px;">Rejoindre un leader de l'énergie comme <strong>EDF</strong> m'a permis d'appréhender des problématiques à fort impact (transition énergétique, budgets importants, restructurations de contrats complexes).</p>
-                <p>Cette expérience de terrain m'a appris l'importance d'adopter un prisme financier, même lors de missions à l'origine orientées vers le développement commercial ou marketing.</p>
-            </div>
-        </div>
-
-        <!-- ==========================================================================
-             PAGE 3 : MISSIONS & ÉTUDE DE CAS EDF (5 min d'oral)
-             ========================================================================== -->
-        <div id="missions" class="tab-content">
-            <div class="card">
-                <h3>💼 Présentation de mes Responsabilités</h3>
-                <p style="margin-bottom: 15px;">Au sein de la direction commerciale d'EDF, ma mission globale s'articule autour de la gestion de projets, la relation client B2B et l'optimisation d'offres de services.</p>
-                <p>J'ai développé des tableaux de bord de suivi de performance sous Excel et utilisé le CRM Salesforce pour piloter les interactions et quantifier l'avancement de mes projets.</p>
-            </div>
-
-            <div class="card" style="border-left: 5px solid var(--edf-blue);">
-                <h3>📊 Étude de Cas : Projet Pilote de Renégociation & Transformation</h3>
-                <p style="margin-bottom: 15px;"><strong>Contexte & Problématique :</strong> Renégociation des contrats de maintenance et d'efficacité énergétique pour nos clients tertiaires chez EDF. L'enjeu était de transformer des offres coûteuses en propositions attractives et transparentes.</p>
-                
-                <p style="margin-bottom: 15px;"><strong>Ma démarche :</strong> J'ai structuré une approche financière systématique en modélisant le retour sur investissement (ROI) des solutions d'efficacité énergétique pour prouver scientifiquement les gains au client.</p>
-
-                <div class="project-meta">
-                    <div class="meta-item">
-                        <strong>Projet Phare</strong>
-                        <span>Pilote de Renégociation Maintenance</span>
-                    </div>
-                    <div class="meta-item">
-                        <strong>Outils phares</strong>
-                        <span>Excel avancé & CRM Salesforce</span>
-                    </div>
-                    <div class="meta-item">
-                        <strong>Impact Commercial</strong>
-                        <span>Transformation de l'argumentaire en ROI</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SIMULATEUR DE ROI INTERACTIF -->
-            <div class="calculator-card">
-                <h4>🎛️ Simulateur Interactif de ROI (Démonstration Oral)</h4>
-                <p style="color: var(--muted); font-size: 0.9rem; text-align: center; margin-bottom: 25px;">Modifiez les curseurs en direct devant le jury pour illustrer un cas client :</p>
-                
-                <div class="control-group">
-                    <div class="control-label">
-                        <span>Investissement initial estimé :</span>
-                        <span><strong id="valBudget">60</strong> k€</span>
-                    </div>
-                    <input type="range" id="inputBudget" min="10" max="250" value="60" step="5" oninput="calculerROI()">
-                </div>
-
-                <div class="control-group">
-                    <div class="control-label">
-                        <span>Économies d'énergie générées cumulées :</span>
-                        <span><strong id="valGains">110</strong> k€</span>
-                    </div>
-                    <input type="range" id="inputGains" min="10" max="450" value="110" step="5" oninput="calculerROI()">
-                </div>
-
-                <div id="roiBox" class="roi-display-container positive">
-                    <div class="roi-title">Return On Investment (ROI) Calculé</div>
-                    <div class="roi-number" id="resultatROI">83.33 %</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==========================================================================
-             PAGE 4 : COMPÉTENCES & EXCELLENCE (2 min d'oral)
-             ========================================================================== -->
-        <div id="competences" class="tab-content">
-            <!-- EXCELLENCE ACADÉMIQUE -->
-            <div class="kpi-grid">
-                <div class="kpi-card highlight">
-                    <span class="kpi-icon">🏆</span>
-                    <div class="kpi-value">Majeur de Promo</div>
-                    <div class="kpi-label">Analyse Financière (1er / 145)</div>
-                </div>
-                <div class="kpi-card">
-                    <span class="kpi-icon">📈</span>
-                    <div class="kpi-value">3ème du Parcours</div>
-                    <div class="kpi-label">Sur l'ensemble du BUT (42 étu.)</div>
-                </div>
-                <div class="kpi-card">
-                    <span class="kpi-icon">♟️</span>
-                    <div class="kpi-value">Top 2% Mondial</div>
-                    <div class="kpi-label">Joueurs d'échecs en ligne</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h3>⚙️ Diagnostic des Compétences</h3>
-                <div class="skills-grid">
-                    <div>
-                        <h4 style="color: var(--edf-blue-dark); margin-bottom: 10px;">Hard Skills</h4>
-                        <ul class="skills-list">
-                            <li>Analyse Financière & Diagnostic <span class="badge-skill">Note: 10/10</span></li>
-                            <li>Gestion de contrats & Reporting <span class="badge-skill">Note: 9/10</span></li>
-                            <li>Suivi des KPIs <span class="badge-skill">Note: 9/10</span></li>
-                            <li>Analyse de données & Excel <span class="badge-skill">Note: 8/10</span></li>
-                        </ul>
-                        
-                        <h4 style="color: var(--edf-blue-dark); margin-top: 20px; margin-bottom: 10px;">Outils</h4>
-                        <ul class="skills-list">
-                            <li>Excel (Modélisation de données) <span class="badge-skill">Maîtrisé</span></li>
-                            <li>PowerPoint (Livrables Pro) <span class="badge-skill">Maîtrisé</span></li>
-                            <li>CRM Salesforce <span class="badge-skill">Opérationnel</span></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 style="color: var(--edf-blue-dark); margin-bottom: 10px;">Soft Skills</h4>
-                        <ul class="skills-list">
-                            <li>Esprit d'analyse & Logique <span class="badge-skill">Excellent</span></li>
-                            <li>Organisation & Autonomie <span class="badge-skill">Excellent</span></li>
-                            <li>Communication & Travail d'équipe <span class="badge-skill">Excellent</span></li>
-                            <li>Adaptabilité au changement <span class="badge-skill">Très bon</span></li>
-                        </ul>
-                        
-                        <div style="background-color: var(--gold-bg); border: 1px solid var(--gold); border-radius: 8px; padding: 15px; margin-top: 20px;">
-                            <strong style="color: var(--gold); display: block; margin-bottom: 5px;">💡 Le clin d'œil logique :</strong>
-                            <p style="font-size: 0.85rem; line-height: 1.4;">Classé dans le **Top 2% des joueurs d'échecs en ligne**. Une passion qui témoigne de ma capacité de calcul rapide, d'analyse stratégique et de rigueur mentale.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==========================================================================
-             PAGE 5 : PROJET PROFESSIONNEL (1 min d'oral)
-             ========================================================================== -->
-        <div id="projet" class="tab-content">
-            <div class="card">
-                <h3>🎯 Ma Vision : Pourquoi la Finance ?</h3>
-                <p style="margin-bottom: 15px;">Mon expérience chez EDF a confirmé ma vision : <strong>en entreprise, le pilotage de projet et le pilotage financier sont indissociables.</strong></p>
-                <p>Piloter une campagne commerciale de renégociation de contrat chez EDF requiert la même rigueur analytique que le suivi d'un budget financier. C'est ce lien naturel qui m'amène aujourd'hui à vouloir acquérir les clés théoriques approfondies de la finance d'entreprise.</p>
-            </div>
-
-            <div class="card" style="border-top: 4px solid var(--gold);">
-                <h3>📚 Mes Objectifs de Poursuite</h3>
-                <p style="margin-bottom: 15px;"><strong>Le Master Finance d'Entreprise :</strong> Indispensable pour développer des compétences dures en gestion, en analyse de performance et en modélisation financière complexe.</p>
-                
-                <p><strong>Recherche d'Alternance :</strong></p>
-                <ul>
-                    <li style="margin-left: 20px; margin-bottom: 5px;">Contrôle de gestion opérationnel</li>
-                    <li style="margin-left: 20px; margin-bottom: 5px;">Analyse financière d'entreprise</li>
-                    <li style="margin-left: 20px;">Gestion financière de projets</li>
-                </ul>
-            </div>
-        </div>
-
-    </main>
+  <main>
 
     <!-- ==========================================================================
-         6. SCRIPTS JAVASCRIPT : NAVIGATION ET SIMULATEUR DYNAMIQUE
+         PAGE 1 — QUI SUIS-JE ? (timing oral : 1 min)
          ========================================================================== -->
-    <script>
-        // Fonction de navigation par onglets sans rechargement
-        function switchTab(tabId) {
-            const buttons = document.querySelectorAll('.tab-btn');
-            const contents = document.querySelectorAll('.tab-content');
+    <section id="page-qui-suis-je" class="page active" aria-labelledby="titre-qui-suis-je">
 
-            buttons.forEach(btn => btn.classList.remove('active'));
-            contents.forEach(content => content.classList.remove('active'));
+      <span class="eyebrow">Profil</span>
+      <h2 id="titre-qui-suis-je" style="margin-bottom:24px;">Qui suis-je ?</h2>
 
-            // On s'assure d'activer l'élément cible
-            event.currentTarget.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-        }
+      <div class="profile-hero">
+        <div class="avatar-wrap">
+          <!-- Photo de profil : ne pas renommer le fichier (extension .jpg.JPG conservée) -->
+          <img src="photo-paul.jpg.JPG" alt="Photo professionnelle de Paul Bouillot">
+        </div>
+        <div class="profile-intro">
+          <h2>Paul Bouillot, 21 ans</h2>
+          <p class="subtitle">Étudiant en 3ᵉ année de BUT TC — Alternant EDF, direction commerciale B2B</p>
+          <p>
+            Un profil hybride, entre commercial B2B et rigueur analytique : j'aime autant construire la
+            relation avec un client professionnel que décortiquer les chiffres qui sécurisent une négociation.
+          </p>
+        </div>
+      </div>
 
-        // Fonction de calcul de ROI pour l'étude de cas EDF
-        function calculerROI() {
-            const budget = parseFloat(document.getElementById('inputBudget').value);
-            const gains = parseFloat(document.getElementById('inputGains').value);
+      <div class="objective-card">
+        <span class="tag-role">Objectif professionnel</span>
+        <p>
+          Intégrer dès la rentrée prochaine un <strong>Master en Finance d'Entreprise / Direction
+          Administrative et Financière (DAF)</strong>, pour me spécialiser en analyse financière,
+          contrôle de gestion et finance d'entreprise.
+        </p>
+      </div>
 
-            document.getElementById('valBudget').innerText = budget;
-            document.getElementById('valGains').innerText = gains;
+    </section>
 
-            if (budget > 0) {
-                const roi = ((gains - budget) / budget) * 100;
-                
-                const elementROI = document.getElementById('resultatROI');
-                const boxROI = document.getElementById('roiBox');
-                
-                elementROI.innerText = roi.toFixed(2) + " %";
+    <!-- ==========================================================================
+         PAGE 2 — MON PARCOURS (timing oral : 1 min)
+         ========================================================================== -->
+    <section id="page-parcours" class="page" aria-labelledby="titre-parcours">
 
-                if (roi >= 0) {
-                    boxROI.className = "roi-display-container positive";
-                } else {
-                    boxROI.className = "roi-display-container negative";
-                }
-            }
-        }
+      <span class="eyebrow">Parcours</span>
+      <h2 id="titre-parcours" style="margin-bottom:24px;">Mon parcours</h2>
 
-        // Calcul initial
-        calculerROI();
-    </script>
+      <div class="parcours-grid">
+        <article class="parcours-card">
+          <span class="step-number">1</span>
+          <h3>Le BUT Techniques de Commercialisation</h3>
+          <ul>
+            <li>Négociation commerciale complexe en B2B</li>
+            <li>Gestion de projet appliquée au commerce</li>
+            <li>Calculs de rentabilité commerciale</li>
+          </ul>
+        </article>
+
+        <article class="parcours-card">
+          <span class="step-number">2</span>
+          <h3>L'alternance chez EDF</h3>
+          <p>
+            J'ai choisi ce groupe pour la complexité de ses processus énergétiques. J'y ai appris la rigueur
+            et le rapport à la donnée — le vrai déclic vers la finance d'entreprise.
+          </p>
+        </article>
+
+        <article class="parcours-card is-target">
+          <span class="step-number">3</span>
+          <h3>Le déclic financier</h3>
+          <p>
+            Piloter des campagnes chiffrées m'a convaincu de vouloir techniciser mes compétences pour évoluer
+            vers l'analyse financière et le contrôle de gestion.
+          </p>
+        </article>
+      </div>
+
+    </section>
+
+    <!-- ==========================================================================
+         PAGE 3 — MISSIONS & ÉTUDE DE CAS EDF (timing oral : 5 min)
+         ========================================================================== -->
+    <section id="page-missions" class="page" aria-labelledby="titre-missions">
+
+      <span class="eyebrow">Missions</span>
+      <h2 id="titre-missions" style="margin-bottom:20px;">Mes missions &amp; étude de cas EDF</h2>
+
+      <div class="missions-list">
+        <div class="mission-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19h4V10H4v9Zm6 0h4V4h-4v15Zm6 0h4v-6h-4v6Z"/></svg>
+          <span>Suivi des indicateurs (KPIs) de portefeuilles clients B2B</span>
+        </div>
+        <div class="mission-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>
+          <span>Utilisation intensive du CRM Salesforce</span>
+        </div>
+        <div class="mission-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 17V7m6 10V4m6 13v-6"/></svg>
+          <span>Construction de modèles de données sous Excel</span>
+        </div>
+      </div>
+
+      <p class="case-title">Étude de cas — Projet pilote de renégociation &amp; transformation EDF</p>
+      <p class="case-context">
+        Pendant un an, j'ai piloté la campagne de renégociation des <strong>87 contrats</strong> de maintenance
+        de transformateurs haute tension arrivant à échéance chez nos clients industriels — une prestation aussi
+        critique pour eux qu'une assurance vie. J'ai fait le lien entre les équipes technique et commerciale,
+        co-animé une réunion de lancement terrain ("Zoom Market") pour embarquer les commerciaux, automatisé
+        80&nbsp;% de la production des contrats par publipostage tout en ajustant manuellement les 20&nbsp;%
+        restants, puis sécurisé la transmission sur Salesforce jusqu'à la signature client. Cette mission illustre
+        ma transition d'un argumentaire commercial classique vers une véritable démonstration financière.
+      </p>
+
+      <div class="mini-kpi-row">
+        <div class="mini-kpi">
+          <div class="value">87</div>
+          <div class="label">Contrats à renégocier</div>
+        </div>
+        <div class="mini-kpi">
+          <div class="value">65 %</div>
+          <div class="label">Objectif de taux de transformation</div>
+        </div>
+        <div class="mini-kpi">
+          <div class="value">741 056 €</div>
+          <div class="label">Chiffre d'affaires visé</div>
+        </div>
+        <div class="mini-kpi">
+          <div class="value">80 %</div>
+          <div class="label">Contrats générés automatiquement</div>
+        </div>
+      </div>
+
+      <div class="pipeline">
+        <div class="pipeline-step">
+          <span class="status-dot done">Terminé</span>
+          <span class="step-title">Extraction &amp; structuration des données</span>
+        </div>
+        <div class="pipeline-step">
+          <span class="status-dot done">Terminé</span>
+          <span class="step-title">Synchronisation avec le référent technique</span>
+        </div>
+        <div class="pipeline-step">
+          <span class="status-dot done">Terminé</span>
+          <span class="step-title">Lancement terrain — réunion "Zoom Market"</span>
+        </div>
+        <div class="pipeline-step">
+          <span class="status-dot done">Terminé</span>
+          <span class="step-title">Publipostage &amp; ajustements sur-mesure</span>
+        </div>
+        <div class="pipeline-step">
+          <span class="status-dot done">Terminé</span>
+          <span class="step-title">Transmission &amp; suivi sur Salesforce</span>
+        </div>
+        <div class="pipeline-step">
+          <span class="status-dot recurring">Récurrent</span>
+          <span class="step-title">Contrôle des gestes métiers &amp; reporting mensuel</span>
+        </div>
+      </div>
+
+      <!-- Simulateur interactif obligatoire : ROI en direct -->
+      <div class="simulator">
+        <h3>Simulateur de ROI</h3>
+        <p class="sub">
+          Faites varier l'investissement initial et les gains cumulés pour visualiser le ROI en direct pendant
+          la démonstration à l'oral.
+        </p>
+
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>Investissement initial</span>
+            <span class="val"><span id="valBudget">50</span> k€</span>
+          </div>
+          <input type="range" id="sliderBudget" min="10" max="200" step="5" value="50" aria-label="Investissement initial en k€">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>Gains cumulés</span>
+            <span class="val"><span id="valGains">80</span> k€</span>
+          </div>
+          <input type="range" id="sliderGains" min="0" max="300" step="5" value="80" aria-label="Gains cumulés en k€">
+        </div>
+
+        <div class="result-box">
+          <div>
+            <div class="result-label">ROI</div>
+            <div class="result-value positive" id="roiValue">+60 %</div>
+          </div>
+          <div class="result-tag positive" id="roiTag">Rentable</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==========================================================================
+         PAGE 4 — COMPÉTENCES & EXCELLENCE ACADÉMIQUE (timing oral : 2 min)
+         ========================================================================== -->
+    <section id="page-competences" class="page" aria-labelledby="titre-competences">
+
+      <span class="eyebrow">Excellence académique</span>
+      <h2 id="titre-competences" style="margin-bottom:24px;">Mes compétences &amp; excellence académique</h2>
+
+      <div class="kpi-row">
+        <div class="kpi-card gold">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <circle cx="12" cy="9" r="6"></circle>
+            <path d="M8.5 14.5L7 22l5-3 5 3-1.5-7.5"></path>
+          </svg>
+          <div class="kpi-number">1ᵉʳ /145</div>
+          <div class="kpi-label">Major de promo en Analyse Financière</div>
+        </div>
+
+        <div class="kpi-card">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M4 19h4V10H4v9Zm6 0h4V4h-4v15Zm6 0h4v-6h-4v6Z"></path>
+          </svg>
+          <div class="kpi-number">3ᵉ /42</div>
+          <div class="kpi-label">Classement global du parcours BUT TC</div>
+        </div>
+
+        <div class="kpi-card wink">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <path d="M8 21h8M12 17v4M7 7h2v2H7zM11 7h2v2h-2zM15 7h2v2h-2zM9 11h2v2H9zM13 11h2v2h-2z"></path>
+          </svg>
+          <div class="kpi-number">Top 2 % mondial</div>
+          <div class="kpi-label">Échecs en ligne — calcul mental, vision stratégique, gestion du stress</div>
+        </div>
+      </div>
+
+      <div class="skills-columns">
+        <div>
+          <h4 class="sub-heading">Hard skills</h4>
+          <div class="skills-grid">
+            <article class="skill-card" data-score="9">
+              <div class="top-row"><h3>Analyse de données</h3><span class="score">9/10</span></div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </article>
+            <article class="skill-card" data-score="9.5">
+              <div class="top-row"><h3>Suivi d'indicateurs</h3><span class="score">9.5/10</span></div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </article>
+            <article class="skill-card" data-score="8.5">
+              <div class="top-row"><h3>Gestion de contrats</h3><span class="score">8.5/10</span></div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </article>
+            <article class="skill-card" data-score="9">
+              <div class="top-row"><h3>Reporting</h3><span class="score">9/10</span></div>
+              <div class="bar-track"><div class="bar-fill"></div></div>
+            </article>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="sub-heading">Soft skills</h4>
+          <div class="chip-group" style="margin-bottom:26px;">
+            <span class="chip">Esprit d'analyse</span>
+            <span class="chip">Organisation</span>
+            <span class="chip">Autonomie</span>
+            <span class="chip">Communication</span>
+            <span class="chip">Travail en équipe</span>
+            <span class="chip">Adaptabilité</span>
+          </div>
+
+          <h4 class="sub-heading">Outils maîtrisés</h4>
+          <div class="chip-group">
+            <span class="chip outline">Excel (avancé / modélisation)</span>
+            <span class="chip outline">PowerPoint</span>
+            <span class="chip outline">Word</span>
+            <span class="chip outline">CRM Salesforce</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==========================================================================
+         PAGE 5 — PROJET PROFESSIONNEL (timing oral : 1 min)
+         ========================================================================== -->
+    <section id="page-projet" class="page" aria-labelledby="titre-projet">
+
+      <span class="eyebrow">Ambition</span>
+      <h2 id="titre-projet" style="margin-bottom:24px;">Mon projet professionnel</h2>
+
+      <div class="project-grid">
+        <article class="project-card">
+          <h3>Le lien entre EDF et la finance</h3>
+          <p>
+            Piloter un projet financier en entreprise demande la même rigueur que celle que j'ai déployée pour
+            piloter mes campagnes de renégociation de contrats chez EDF : cadrage, suivi chiffré, fiabilité des
+            données et reporting.
+          </p>
+        </article>
+
+        <article class="project-card">
+          <h3>Pourquoi un Master ?</h3>
+          <p>Pour techniciser mes compétences sur trois axes :</p>
+          <ul>
+            <li>Comptabilité approfondie</li>
+            <li>Ingénierie financière</li>
+            <li>Diagnostic de performance</li>
+          </ul>
+        </article>
+
+        <article class="project-card">
+          <h3>Ce que je recherche</h3>
+          <ul>
+            <li>Un Master en Finance d'Entreprise</li>
+            <li>Une alternance en Contrôle de gestion</li>
+            <li>Ou en Analyse financière / Direction financière d'entreprise</li>
+          </ul>
+        </article>
+      </div>
+
+      <p class="closing-quote">
+        Mon ambition : transformer une rigueur commerciale déjà éprouvée sur le terrain en une expertise
+        financière reconnue, au service du pilotage de la performance d'entreprise.
+      </p>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    Portfolio réalisé par Paul Bouillot dans le cadre de la soutenance BUT Techniques de Commercialisation.
+  </footer>
+
+  <script>
+  /* ============================================================================
+     JAVASCRIPT
+     @author Paul Bouillot
+     ============================================================================ */
+
+  // ---------------------------------------------------------------------------
+  // 1. NAVIGATION PAR ONGLETS — bascule entre les 5 pages sans rechargement
+  // ---------------------------------------------------------------------------
+  const NAV_BUTTONS = document.querySelectorAll('nav.tabs button');
+  const PAGES = document.querySelectorAll('.page');
+
+  function activatePage(targetId){
+    PAGES.forEach(page => {
+      page.classList.toggle('active', page.id === targetId);
+    });
+    NAV_BUTTONS.forEach(btn => {
+      const isActive = btn.dataset.target === targetId;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    // Rejoue l'animation des barres de compétences à chaque activation de la page,
+    // pour une démonstration fluide et répétable à l'oral.
+    if (targetId === 'page-competences') animateSkillBars();
+  }
+
+  NAV_BUTTONS.forEach(btn => {
+    btn.addEventListener('click', () => activatePage(btn.dataset.target));
+  });
+
+  // ---------------------------------------------------------------------------
+  // 2. ANIMATION DES BARRES DE COMPÉTENCES (page 4)
+  // ---------------------------------------------------------------------------
+  const NOTE_MAXIMALE = 10; // barème utilisé pour toutes les compétences notées sur 10
+
+  function animateSkillBars(){
+    const cards = document.querySelectorAll('.skill-card');
+    cards.forEach((card, index) => {
+      const score = parseFloat(card.dataset.score);
+      const fill = card.querySelector('.bar-fill');
+      const pourcentage = (score / NOTE_MAXIMALE) * 100;
+
+      fill.style.width = '0%';
+      window.setTimeout(() => {
+        fill.style.width = pourcentage + '%';
+      }, 80 * index); // léger effet de cascade entre les cartes
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // 3. SIMULATEUR DE ROI — Page 3, étude de cas EDF
+  //    Aucun chiffre magique : toutes les valeurs sont lues depuis les curseurs.
+  // ---------------------------------------------------------------------------
+  const sliderBudget = document.getElementById('sliderBudget');
+  const sliderGains  = document.getElementById('sliderGains');
+  const valBudgetEl  = document.getElementById('valBudget');
+  const valGainsEl   = document.getElementById('valGains');
+  const roiValueEl   = document.getElementById('roiValue');
+  const roiTagEl     = document.getElementById('roiTag');
+
+  function calculerROI(){
+    const investissementInitial = parseFloat(sliderBudget.value); // en k€
+    const gainsCumules           = parseFloat(sliderGains.value);  // en k€
+
+    valBudgetEl.textContent = investissementInitial;
+    valGainsEl.textContent  = gainsCumules;
+
+    // Formule du ROI : (Gains - Investissement) / Investissement * 100
+    const roiPourcentage = ((gainsCumules - investissementInitial) / investissementInitial) * 100;
+    const roiArrondi     = Math.round(roiPourcentage);
+    const estPositif     = roiPourcentage >= 0;
+
+    roiValueEl.textContent = (estPositif ? '+' : '') + roiArrondi + ' %';
+    roiValueEl.classList.toggle('positive', estPositif);
+    roiValueEl.classList.toggle('negative', !estPositif);
+
+    roiTagEl.textContent = estPositif ? 'Rentable' : 'Non rentable';
+    roiTagEl.classList.toggle('positive', estPositif);
+    roiTagEl.classList.toggle('negative', !estPositif);
+  }
+
+  sliderBudget.addEventListener('input', calculerROI);
+  sliderGains.addEventListener('input', calculerROI);
+
+  // ---------------------------------------------------------------------------
+  // 4. INITIALISATION AU CHARGEMENT
+  // ---------------------------------------------------------------------------
+  document.addEventListener('DOMContentLoaded', () => {
+    animateSkillBars();
+    calculerROI();
+  });
+  </script>
+
 </body>
 </html>
