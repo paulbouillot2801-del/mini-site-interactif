@@ -61,8 +61,8 @@
     z-index: 50;
     background: var(--edf-blue-dark);
     color: var(--white);
-    padding: 35px 24px; /* Augmenté pour un bandeau plus épais */
-    text-align: center; /* Centrage complet des éléments */
+    padding: 35px 24px;
+    text-align: center;
     box-shadow: 0 2px 14px rgba(10,38,71,0.25);
     border-bottom: 4px solid var(--edf-blue);
   }
@@ -161,7 +161,7 @@
   }
 
   /* ==========================================================================
-     3. PAGE 1 — QUI SUIS-JE ? (Photo centrée & Métiers cibles)
+     3. PAGE 1 — QUI SUIS-JE ?
      ========================================================================== */
   .profile-hero-center{
     text-align: center;
@@ -247,7 +247,7 @@
   .parcours-card h3{ font-size: 1.1rem; margin-bottom: 8px; }
 
   /* ==========================================================================
-     5. PAGE 3 — MISSIONS & ETUDE DE CAS EDF (Épurée sans ROI)
+     5. PAGE 3 — MISSIONS & ETUDE DE CAS EDF + SECTION EXCEL INTEGRÉE
      ========================================================================== */
   .case-context-short {
     color: var(--muted);
@@ -283,10 +283,56 @@
     margin-top: 4px;
   }
 
+  /* Nouvelle section pour les captures Excel */
+  .excel-dashboard-section {
+    margin-top: 35px;
+    background: #FAFBFD;
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-m);
+    padding: 25px;
+  }
+  .excel-dashboard-section h3 {
+    font-size: 1.15rem;
+    color: var(--edf-blue-dark);
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  .excel-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .excel-row-top {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .excel-img-box {
+    background: var(--white);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-s);
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .excel-img-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+  }
+  .excel-caption {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 8px;
+    font-weight: 600;
+    text-align: center;
+  }
+
   .pipeline{
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 25px;
   }
   .pipeline-step{
     background: var(--white);
@@ -313,7 +359,7 @@
   }
 
   /* ==========================================================================
-     6. PAGE 4 — COMPÉTENCES AVEC ÉTOILES (Sans gestion de contrat)
+     6. PAGE 4 — COMPÉTENCES AVEC ÉTOILES
      ========================================================================== */
   .kpi-row{
     display: grid;
@@ -374,7 +420,7 @@
   .chip.outline{ background: var(--white); border: 1px solid var(--gray-line); color: var(--ink); }
 
   /* ==========================================================================
-     7. PAGE 5 — PROJET PROFESSIONNEL (Ultra-synthétique)
+     7. PAGE 5 — PROJET PROFESSIONNEL
      ========================================================================== */
   .project-grid{
     display: grid;
@@ -436,7 +482,7 @@
   <main>
 
     <!-- ==========================================================================
-         PAGE 1 — QUI SUIS-JE ? (Photo centrée & Métiers cibles)
+         PAGE 1 — QUI SUIS-JE ?
          ========================================================================== -->
     <section id="page-qui-suis-je" class="page active">
       <div class="card">
@@ -444,7 +490,7 @@
           <img src="photo-paul.jpg.JPG" alt="Paul Bouillot" class="avatar-centered">
           <div class="profile-intro-center">
             <h2>Paul Bouillot, 21 ans</h2>
-            <p class="subtitle">BUT TC — Alternant Direction Commerciale B2B chez EDF</p>
+            <p class="subtitle">BUT TC — Alternant Chargé d’Appui Commercial B2B chez EDF</p>
             <p class="bio">
               Un profil hybride associant aisance relationnelle en milieu de négociation B2B et forte rigueur analytique. 
               Passionné par les modèles de performance et les données chiffrées.
@@ -476,13 +522,13 @@
         <article class="parcours-card">
           <span class="step-number">1</span>
           <h3>Le BUT TC</h3>
-          <p>Bases solides en négociation B2B, gestion de projet et calculs de rentabilité commerciale.</p>
+          <p>Bases solides en négociation B2B, gestion de projet et analyse financière.</p>
         </article>
 
         <article class="parcours-card">
           <span class="step-number">2</span>
           <h3>L'alternance EDF</h3>
-          <p>Immersion au cœur de processus énergétiques complexes. Apprentissage de la rigueur et traitement de la data business.</p>
+          <p>Immersion au cœur de processus énergétiques complexes. Rigueur en environnement international et pilotage de projet commercial.</p>
         </article>
 
         <article class="parcours-card">
@@ -494,7 +540,7 @@
     </section>
 
     <!-- ==========================================================================
-         PAGE 3 — MISSIONS & ÉTUDE DE CAS EDF (Visuelle et synthétique)
+         PAGE 3 — MISSIONS & ÉTUDE DE CAS EDF (Avec intégration de tes graphiques Excel)
          ========================================================================== -->
     <section id="page-missions" class="page">
       <span class="eyebrow">EDF B2B</span>
@@ -522,6 +568,30 @@
           <div class="mini-kpi">
             <div class="value">80 %</div>
             <div class="label">Processus automatisé</div>
+          </div>
+        </div>
+
+        <!-- NOUVELLE GALERIE : TES CAPTURES EXCEL TABLEAU DE BORD -->
+        <div class="excel-dashboard-section">
+          <h3>📊 Livrable : Tableaux de bord de suivi du projet pilote (Excel)</h3>
+          <div class="excel-grid">
+            <!-- Image Principale du Haut -->
+            <div class="excel-img-box">
+              <img src="Image1.png" alt="Tableau de bord Global Renego MT">
+              <div class="excel-caption">Vue macro : Suivi de l'objectif de 65% de transformation (718 288 €) et montants signés en direct</div>
+            </div>
+            
+            <!-- Deux Images du bas côte à côte -->
+            <div class="excel-row-top">
+              <div class="excel-img-box">
+                <img src="Image2.png" alt="Préparation et statut des contrats">
+                <div class="excel-caption">Entonnoir opérationnel : Contrats remis aux vendeurs vs signés (38 signatures sécurisées)</div>
+              </div>
+              <div class="excel-img-box">
+                <img src="Image3.png" alt="Dates d'effet les plus proches">
+                <div class="excel-caption">Analyse temporelle : Planification de la charge de travail selon les dates d'effet des contrats</div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -556,23 +626,23 @@
     </section>
 
     <!-- ==========================================================================
-         PAGE 4 — COMPÉTENCES & EXCELLENCE (Étoiles sur 5 & Sans Gestion de contrat)
+         PAGE 4 — COMPÉTENCES & EXCELLENCE
          ========================================================================== -->
     <section id="page-competences" class="page">
       <span class="eyebrow">Indicateurs</span>
       
       <div class="kpi-row">
         <div class="kpi-card gold">
-          <div class="kpi-number">1ᵉʳ / 145</div>
+          <div class="kpi-number">1ᵉʳ / 145 étudiants </div>
           <div class="kpi-label">Major de Promo en Analyse Financière</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-number">3ᵉ / 42</div>
+          <div class="kpi-number">3ᵉ / 42 étudiants </div>
           <div class="kpi-label">Classement Global BUT TC</div>
         </div>
         <div class="kpi-card">
           <div class="kpi-number">Top 2 %</div>
-          <div class="kpi-label">Mondial aux Échecs en Ligne</div>
+          <div class="kpi-label">Mondial aux Échecs en Ligne mode rapide</div>
         </div>
       </div>
 
@@ -616,7 +686,7 @@
     </section>
 
     <!-- ==========================================================================
-         PAGE 5 — PROJET PROFESSIONNEL (Épuré et ultra-visuel)
+         PAGE 5 — PROJET PROFESSIONNEL
          ========================================================================== -->
     <section id="page-projet" class="page">
       <span class="eyebrow">Perspectives</span>
