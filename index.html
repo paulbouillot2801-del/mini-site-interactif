@@ -53,7 +53,7 @@
   li{ margin-bottom: 6px; }
 
   /* ==========================================================================
-     2. STRUCTURE GÉNÉRALE — Bandeau épais centré & Onglets (Sans numérotation)
+     2. STRUCTURE GÉNÉRALE & ANIMATIONS DE SITES INTERACTIFS
      ========================================================================== */
   .site-header{
     position: sticky;
@@ -106,9 +106,9 @@
     border-radius: 999px;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  nav.tabs button:hover{ color: var(--white); background: rgba(255,255,255,0.05); }
+  nav.tabs button:hover{ color: var(--white); background: rgba(255,255,255,0.08); transform: translateY(-1px); }
   nav.tabs button.active{
     background: var(--white);
     color: var(--edf-blue-dark);
@@ -121,14 +121,29 @@
     padding: 40px 24px 80px;
   }
 
+  /* Animations fluides d'apparition des pages et éléments */
   .page{ display: none; }
   .page.active{
     display: block;
-    animation: fadeIn 0.35s ease;
   }
-  @keyframes fadeIn{
-    from{ opacity: 0; transform: translateY(8px); }
-    to{ opacity: 1; transform: translateY(0); }
+
+  /* Animation d'apparition des cartes et conteneurs */
+  .animated-element {
+    animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .eyebrow{
@@ -151,6 +166,10 @@
     box-shadow: var(--shadow-card);
     padding: 28px 30px;
     margin-bottom: 25px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    box-shadow: 0 6px 24px rgba(10,38,71,0.08);
   }
 
   .card h2{
@@ -161,13 +180,14 @@
   }
 
   /* ==========================================================================
-     3. PAGE 1 — QUI SUIS-JE ? (PHOTO DE PROFIL FIXE SANS ANIMATION)
+     3. PAGE 1 — QUI SUIS-JE ? (PHOTO DE PROFIL SANS ROTATION CIRCULAIRE)
      ========================================================================== */
   .profile-hero-center{
     text-align: center;
     margin-bottom: 25px;
   }
   
+  /* Photo parfaitement fixe sans rotation */
   .avatar-centered{
     width: 165px;
     height: 165px;
@@ -178,9 +198,9 @@
     margin: 0 auto 20px auto;
     display: block;
     background: var(--edf-blue-pale);
+    /* Desactivation explicite de la rotation */
     transform: none !important;
     animation: none !important;
-    transition: none !important;
   }
   
   .profile-intro-center h2 {
@@ -215,6 +235,10 @@
     font-weight: 600;
     padding: 6px 14px;
     border-radius: 6px;
+    transition: transform 0.2s ease;
+  }
+  .job-badge:hover {
+    transform: translateY(-2px);
   }
 
   .values-grid {
@@ -229,6 +253,10 @@
     border-radius: var(--radius-s);
     padding: 15px;
     text-align: left;
+    transition: transform 0.2s ease;
+  }
+  .value-box:hover {
+    transform: translateY(-2px);
   }
   .value-box h4 {
     font-size: 0.95rem;
@@ -302,6 +330,12 @@
     font-size: 1.8rem;
     margin-bottom: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .timeline-node:hover .timeline-icon-circle {
+    transform: scale(1.1);
+    border-color: var(--edf-blue);
   }
 
   .timeline-tag {
@@ -371,6 +405,10 @@
     padding: 20px;
     text-align: center;
     box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease;
+  }
+  .mini-kpi:hover {
+    transform: translateY(-3px);
   }
   .mini-kpi .value{
     font-size: 1.8rem;
@@ -413,6 +451,10 @@
     border-radius: var(--radius-s);
     padding: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: transform 0.2s ease;
+  }
+  .excel-img-box:hover {
+    transform: scale(1.01);
   }
   .excel-img-box img {
     width: 100%;
@@ -443,6 +485,10 @@
     justify-content: space-between;
     align-items: center;
     box-shadow: var(--shadow-card);
+    transition: transform 0.15s ease;
+  }
+  .pipeline-step:hover {
+    transform: translateX(4px);
   }
   .status-dot.done{
     color: var(--success);
@@ -474,6 +520,10 @@
     padding: 24px;
     text-align: center;
     box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease;
+  }
+  .kpi-card:hover {
+    transform: translateY(-4px);
   }
   .kpi-card.gold{ background: linear-gradient(155deg, var(--edf-blue-dark) 50%, #3B2C0E 140%); border: 1px solid #E7C878; }
   .kpi-number{
@@ -516,7 +566,9 @@
     font-weight: 600;
     padding: 8px 14px;
     border-radius: 999px;
+    transition: transform 0.2s ease;
   }
+  .chip:hover { transform: translateY(-1px); }
   .chip.highlight-skill {
     background: #EAF3FC;
     border: 1px solid var(--edf-blue);
@@ -539,7 +591,9 @@
     border-radius: var(--radius-m);
     box-shadow: var(--shadow-card);
     padding: 24px;
+    transition: transform 0.2s ease;
   }
+  .project-card:hover { transform: translateY(-3px); }
   .project-card h3{ font-size: 1.1rem; margin-bottom: 12px; color: var(--edf-blue); }
   .project-card p { color: var(--muted); font-size: 0.95rem; margin: 0; }
 
@@ -625,10 +679,10 @@
   <main>
 
     <!-- ==========================================================================
-         PAGE 1 — QUI SUIS-JE ? (SANS ÉMOJIS DANS ADN & VALEURS)
+         PAGE 1 — QUI SUIS-JE ?
          ========================================================================== -->
     <section id="page-qui-suis-je" class="page active">
-      <div class="card">
+      <div class="card animated-element">
         <div class="profile-hero-center">
           <img src="photo-paul.jpg.JPG" alt="Paul Bouillot" class="avatar-centered">
           <div class="profile-intro-center">
@@ -670,7 +724,7 @@
          PAGE 2 — MON PARCOURS
          ========================================================================== -->
     <section id="page-parcours" class="page">
-      <div class="timeline-banner">
+      <div class="timeline-banner animated-element">
         <div class="timeline-banner-title">Mon parcours</div>
         
         <div class="timeline-horizontal">
@@ -709,7 +763,7 @@
     <section id="page-missions" class="page">
       <span class="eyebrow">EDF B2B</span>
       
-      <div class="card">
+      <div class="card animated-element">
         <h2>Étude de cas : Campagne Pilote de Renégociation Maintenance</h2>
         <p class="case-context-short">
           Pilotage global de la campagne de renégociation de <strong>87 contrats</strong> complexes de maintenance de transformateurs haute tension arrivant à échéance. Automatisation des processus et sécurisation des données sur Salesforce.
@@ -790,7 +844,7 @@
     <section id="page-competences" class="page">
       <span class="eyebrow">Indicateurs</span>
       
-      <div class="kpi-row">
+      <div class="kpi-row animated-element">
         <div class="kpi-card gold">
           <div class="kpi-number">1ᵉʳ / 145 étudiants</div>
           <div class="kpi-label">Major de Promo en Analyse Financière</div>
@@ -801,7 +855,7 @@
         </div>
       </div>
 
-      <div class="skills-columns">
+      <div class="skills-columns animated-element delay-1">
         <div>
           <h4 class="sub-heading">Hard Skills (Évaluation)</h4>
           <div class="skills-list-stars">
@@ -847,7 +901,7 @@
     <section id="page-projet" class="page">
       <span class="eyebrow">Perspectives</span>
       
-      <div class="project-grid">
+      <div class="project-grid animated-element">
         <article class="project-card">
           <h3>Le lien EDF / Finance</h3>
           <p>Le pilotage d'une campagne de renégociation chiffrée chez EDF répond aux mêmes exigences qu'un projet financier : intégrité des données, calculs de rentabilité et rigueur du reporting.</p>
@@ -864,7 +918,7 @@
         </article>
       </div>
 
-      <div class="why-finance-box">
+      <div class="why-finance-box animated-element delay-1">
         <h3>💡 Pourquoi passer du Commerce B2B (BUT TC) à la Finance d'Entreprise ?</h3>
         <div class="why-reasons">
           <div class="reason-item">
@@ -882,7 +936,7 @@
         </div>
       </div>
 
-      <div class="closing-quote">
+      <div class="closing-quote animated-element delay-2">
         " Mettre ma rigueur logique et mes résultats académiques au service du pilotage de la performance financière d'entreprise. "
       </div>
     </section>
@@ -894,14 +948,26 @@
   </footer>
 
   <script>
-  // NAVIGATION PAR ONGLETS FLUIDE
+  // NAVIGATION PAR ONGLETS FLUIDE AVEC REJOUEMENT DES ANIMATIONS
   const NAV_BUTTONS = document.querySelectorAll('nav.tabs button');
   const PAGES = document.querySelectorAll('.page');
 
   function activatePage(targetId){
     PAGES.forEach(page => {
-      page.classList.toggle('active', page.id === targetId);
+      if (page.id === targetId) {
+        page.classList.add('active');
+        // Rejouer l'animation d'apparition fluide des blocs
+        const animatedElements = page.querySelectorAll('.animated-element');
+        animatedElements.forEach(el => {
+          el.style.animation = 'none';
+          el.offsetHeight; // Force reflow
+          el.style.animation = null;
+        });
+      } else {
+        page.classList.remove('active');
+      }
     });
+
     NAV_BUTTONS.forEach(btn => {
       const isActive = btn.dataset.target === targetId;
       btn.classList.toggle('active', isActive);
