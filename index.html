@@ -504,21 +504,23 @@
     font-weight: 800;
   }
 
+  /* IMAGES DE L'ÉTUDE DE CAS N°2 — REDIMENSIONNÉES ET AÉRÉES */
   .case2-image{
-    margin: 0 0 24px;
+    max-width: 650px;
+    margin: 28px auto 32px auto;
     background: var(--white);
     border: 1px solid var(--gray-line);
-    border-radius: var(--radius-s);
-    padding: 10px;
+    border-radius: var(--radius-m);
+    padding: 16px;
     box-shadow: var(--shadow-card);
     overflow: hidden;
     transition: box-shadow 0.3s ease, transform 0.3s var(--ease);
   }
   .case2-image:hover{ box-shadow: var(--shadow-hover); transform: translateY(-4px); }
-  .case2-image img{ width: 100%; height: auto; display: block; border-radius: 4px; }
+  .case2-image img{ width: 100%; height: auto; display: block; border-radius: 6px; }
 
   .professor-quote{
-    margin: 0;
+    margin: 24px 0 0 0;
     border-left: 4px solid var(--edf-blue);
     background: var(--edf-blue-pale);
     border-radius: 0 var(--radius-s) var(--radius-s) 0;
@@ -709,6 +711,7 @@
     .timeline-horizontal{ flex-direction: column; align-items: center; gap: 34px; }
     .timeline-line{ display: none; }
     .case2-list.grid-2x2{ grid-template-columns: 1fr; }
+    .case2-image{ max-width: 100%; margin: 20px auto; }
   }
 </style>
 </head>
