@@ -4,7 +4,7 @@
   Portfolio numérique interactif — Soutenance BUT Techniques de Commercialisation
   @author Paul Bouillot
   Hébergement : GitHub Pages (fichier unique, HTML + CSS + JS)
-  Fichiers du dépôt : index.html + photo-paul.jpg.JPG + Image1.png + Image2.png + Image3.png
+  Fichiers du dépôt : index.html + photo-paul.jpg.JPG + Image1.png + Image2.png
   (ne pas renommer ces fichiers, l'affichage en dépend)
   ============================================================================
 -->
@@ -182,25 +182,25 @@
     border: 1px solid var(--gray-line);
     border-radius: var(--radius-l);
     box-shadow: var(--shadow-card);
-    padding: 36px 38px;
-    margin-bottom: 28px;
+    padding: 42px 44px;
+    margin-bottom: 34px;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
   }
   .card h2{
     font-size: 1.35rem;
-    margin-bottom: 22px;
-    padding-bottom: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--gray-line);
   }
 
   /* ==========================================================================
      3. PAGE 1 — QUI SUIS-JE ?
      ========================================================================== */
-  .profile-hero-center{ text-align: center; margin-bottom: 8px; }
+  .profile-hero-center{ text-align: center; margin-bottom: 12px; }
 
   .avatar-ring{
     width: 176px; height: 176px;
-    margin: 0 auto 24px;
+    margin: 0 auto 32px;
     border-radius: 50%;
     padding: 5px;
     background: conic-gradient(from 0deg, var(--edf-blue), var(--edf-blue-dark), var(--edf-blue));
@@ -215,26 +215,27 @@
     background: var(--edf-blue-pale);
   }
 
-  .profile-intro-center h2{ font-size: 1.85rem; margin-bottom: 8px; }
+  .profile-intro-center h2{ font-size: 1.85rem; margin-bottom: 14px; }
   .profile-intro-center .subtitle{
     color: var(--edf-blue);
     font-weight: 700;
     font-size: 1.02rem;
-    margin-bottom: 18px;
+    margin-bottom: 26px;
   }
   .profile-intro-center .bio{
     color: var(--muted);
     max-width: 52ch;
     margin: 0 auto;
     font-size: 1.05rem;
+    line-height: 1.7;
   }
 
   .section-divider{
     border: none;
     border-top: 1px solid var(--gray-line);
-    margin: 34px 0 26px;
+    margin: 44px 0 32px;
   }
-  .adn-title{ font-size: 1.05rem; text-align: center; margin-bottom: 20px; }
+  .adn-title{ font-size: 1.05rem; text-align: center; margin-bottom: 26px; }
 
   .project-statement{
     position: relative;
@@ -379,23 +380,12 @@
     max-width: 190px;
   }
   .timeline-node-sub{ font-size: 0.87rem; color: var(--muted); font-weight: 500; }
-  .timeline-node-badge{
-    display: inline-block;
-    margin-top: 10px;
-    background: var(--edf-blue-pale);
-    color: var(--edf-blue);
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 999px;
-  }
   .timeline-node.target .timeline-icon-circle{
     background: var(--edf-blue-dark);
     border-color: var(--edf-blue-dark);
   }
   .timeline-node.target .timeline-node-title{ color: var(--edf-blue-dark); }
   .timeline-node.target .timeline-tag{ color: var(--edf-blue); }
-  .timeline-node.target .timeline-node-badge{ background: var(--edf-blue-dark); color: var(--white); }
 
   .parcours-detail-grid{
     display: grid;
@@ -467,6 +457,7 @@
     margin-bottom: 18px;
   }
   .case2-header h3{ font-size: 1.02rem; }
+  .module-credit{ font-size: 0.8rem; color: var(--muted); font-weight: 600; margin-top: 4px; }
 
   .grade-badge{
     display: flex;
@@ -565,6 +556,8 @@
     margin-bottom: 18px;
   }
   .excel-grid{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .excel-grid.two-cols{ grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .excel-grid.two-cols .img-frame{ height: 320px; }
   .excel-img-box{
     background: var(--white);
     border: 1px solid var(--gray-line);
@@ -575,12 +568,12 @@
     transition: box-shadow 0.3s ease, transform 0.3s var(--ease);
   }
   .excel-img-box:hover{ box-shadow: var(--shadow-hover); transform: translateY(-4px); }
-  .excel-img-box .img-frame{ overflow: hidden; border-radius: 4px; height: 190px; }
+  .excel-img-box .img-frame{ overflow: hidden; border-radius: 4px; height: 190px; background: var(--gray-bg); }
   .excel-img-box img{
-    width: 100%; height: 100%; display: block; object-fit: cover;
+    width: 100%; height: 100%; display: block; object-fit: contain;
     transition: transform 0.5s var(--ease);
   }
-  .excel-img-box:hover img{ transform: scale(1.05); }
+  .excel-img-box:hover img{ transform: scale(1.03); }
   .excel-caption{ font-size: 0.8rem; color: var(--muted); margin-top: 10px; font-weight: 600; text-align: center; }
 
   .pipeline{ display: flex; flex-direction: column; gap: 10px; margin-top: 30px; }
@@ -654,9 +647,24 @@
   }
   .skill-star-row:hover{ transform: translateX(4px); box-shadow: var(--shadow-hover); }
   .skill-star-row h3{ font-size: 0.94rem; font-weight: 700; color: var(--ink); }
-  .stars{ color: var(--gold); font-size: 1.25rem; letter-spacing: 3px; }
-  .stars span{ display: inline-block; opacity: 0; transform: scale(0.4); transition: opacity 0.35s var(--ease), transform 0.35s var(--ease); }
-  .stars.in span{ opacity: 1; transform: scale(1); }
+  .stars{
+    position: relative;
+    display: inline-block;
+    font-size: 1.25rem;
+    letter-spacing: 3px;
+    line-height: 1;
+  }
+  .stars-bg{ color: var(--gray-line); }
+  .stars-fg{
+    position: absolute;
+    top: 0; left: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    color: var(--gold);
+    width: 0;
+    transition: width 0.9s var(--ease);
+  }
+  .stars.in .stars-fg{ width: var(--fill); }
 
   h4.sub-heading{ font-size: 0.95rem; color: var(--edf-blue-dark); margin-bottom: 14px; }
 
@@ -722,7 +730,7 @@
             <h2>Paul Bouillot, 21 ans</h2>
             <p class="subtitle">BUT TC — Alternant Chargé d'Appui Commercial B2B chez EDF</p>
             <p class="bio">
-              Entre négociation commerciale et pilotage financier, je construis mon expertise chiffrée chez EDF.
+              Bienvenue sur mon espace digital. Une immersion dans mon univers professionnel : parcours, compétences et bilan.
             </p>
           </div>
         </div>
@@ -796,7 +804,7 @@
             <div class="timeline-tag">Actuellement</div>
             <div class="timeline-node-title">BUT Tech de Co</div>
             <div class="timeline-node-sub">IUT Lyon 1</div>
-            <div class="timeline-node-badge">⚡ Alternance EDF</div>
+            <div class="timeline-node-sub">Alternance EDF</div>
           </div>
 
           <div class="timeline-node target">
@@ -804,7 +812,7 @@
             <div class="timeline-tag">Rentrée 2026</div>
             <div class="timeline-node-title">Master Ingénierie Financière</div>
             <div class="timeline-node-sub">&amp; Finance d'Entreprise</div>
-            <div class="timeline-node-badge">IAE Annecy</div>
+            <div class="timeline-node-sub">IAE Annecy</div>
           </div>
         </div>
 
@@ -875,7 +883,7 @@
 
         <div class="excel-dashboard-section">
           <h3>📊 Tableaux de bord de suivi du projet (Excel)</h3>
-          <div class="excel-grid">
+          <div class="excel-grid two-cols">
             <div class="excel-img-box reveal">
               <div class="img-frame"><img src="Image1.png" alt="Tableau de bord global de la renégociation"></div>
               <div class="excel-caption">Suivi en direct de l'objectif 65 %</div>
@@ -883,10 +891,6 @@
             <div class="excel-img-box reveal">
               <div class="img-frame"><img src="Image2.png" alt="Statut des contrats"></div>
               <div class="excel-caption">Contrats remis vs signés (38 signatures)</div>
-            </div>
-            <div class="excel-img-box reveal">
-              <div class="img-frame"><img src="Image3.png" alt="Dates d'effet des contrats"></div>
-              <div class="excel-caption">Planification selon les dates d'effet</div>
             </div>
           </div>
         </div>
@@ -929,7 +933,10 @@
 
         <div class="case2-block">
           <div class="case2-header">
-            <h3>Réalisation n°1 — Projet de financement</h3>
+            <div>
+              <h3>Réalisation n°1 — Projet de financement</h3>
+              <p class="module-credit">Module : Gestion de projet — Mme Saoudi</p>
+            </div>
             <div class="grade-badge">
               <span class="grade-value">15/20</span>
               <span class="grade-caption">Meilleure note des 8 équipes</span>
@@ -942,14 +949,17 @@
             <li>Coût du personnel</li>
           </ul>
           <blockquote class="professor-quote">
-            « [à compléter : verbatim exact du professeur] »
-            <span class="quote-author">— Professeur, module Finance</span>
+            « Bravo Paul pour la qualité de ton plan de financement. »
+            <span class="quote-author">— Mme Saoudi, professeure de Gestion de projet</span>
           </blockquote>
         </div>
 
         <div class="case2-block">
           <div class="case2-header">
-            <h3>Réalisation n°2 — Plan de financement</h3>
+            <div>
+              <h3>Réalisation n°2 — Business model</h3>
+              <p class="module-credit">Module : Formalisation et sécurisation d'un business model — M. Ruat</p>
+            </div>
             <div class="grade-badge">
               <span class="grade-value">16/20</span>
               <span class="grade-caption">Meilleure note des 8 groupes</span>
@@ -987,15 +997,31 @@
           <div class="skills-list-stars">
             <div class="skill-star-row reveal">
               <h3>Analyse de données</h3>
-              <div class="stars">★★★★★</div>
+              <div class="stars" style="--fill:90%" aria-label="4,5 sur 5">
+                <span class="stars-bg">★★★★★</span>
+                <span class="stars-fg">★★★★★</span>
+              </div>
             </div>
             <div class="skill-star-row reveal">
               <h3>Suivi d'indicateurs (KPIs)</h3>
-              <div class="stars">★★★★★</div>
+              <div class="stars" style="--fill:90%" aria-label="4,5 sur 5">
+                <span class="stars-bg">★★★★★</span>
+                <span class="stars-fg">★★★★★</span>
+              </div>
+            </div>
+            <div class="skill-star-row reveal">
+              <h3>Gestion de projet</h3>
+              <div class="stars" style="--fill:80%" aria-label="4 sur 5">
+                <span class="stars-bg">★★★★★</span>
+                <span class="stars-fg">★★★★★</span>
+              </div>
             </div>
             <div class="skill-star-row reveal">
               <h3>Reporting financier</h3>
-              <div class="stars">★★★★☆</div>
+              <div class="stars" style="--fill:80%" aria-label="4 sur 5">
+                <span class="stars-bg">★★★★★</span>
+                <span class="stars-fg">★★★★★</span>
+              </div>
             </div>
           </div>
         </div>
