@@ -504,6 +504,19 @@
     font-weight: 800;
   }
 
+  .case2-image{
+    margin: 0 0 24px;
+    background: var(--white);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-s);
+    padding: 10px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s var(--ease);
+  }
+  .case2-image:hover{ box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+  .case2-image img{ width: 100%; height: auto; display: block; border-radius: 4px; }
+
   .professor-quote{
     margin: 0;
     border-left: 4px solid var(--edf-blue);
@@ -952,6 +965,9 @@
             <li>Trésorerie prévisionnelle — années 1, 2 et 3</li>
             <li>Coût du personnel</li>
           </ul>
+          <div class="case2-image reveal">
+            <img src="modele_eco.png" alt="Le modèle économique du projet : coûts maîtrisés, rentabilité, pérennité">
+          </div>
           <blockquote class="professor-quote">
             « Bravo Paul pour la qualité de ton plan de financement. »
             <span class="quote-author">— Mme Saoudi, professeure de Gestion de projet</span>
@@ -974,6 +990,9 @@
             <li>Bilan prévisionnel</li>
             <li>Plan de trésorerie</li>
           </ul>
+          <div class="case2-image reveal">
+            <img src="BEE_SAFE_.png" alt="BeeSafe — bilan prévisionnel">
+          </div>
         </div>
       </div>
     </section>
