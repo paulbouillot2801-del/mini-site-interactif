@@ -220,34 +220,121 @@
   }
 
   /* ==========================================================================
-     4. PAGE 2 — PARCOURS SIMPLE
+     4. PAGE 2 — MON PARCOURS (TIMELINE HORIZONTALE ÉPURÉE)
      ========================================================================== */
-  .parcours-grid{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  .parcours-card{
-    background: var(--white);
-    border: 1px solid var(--gray-line);
-    border-radius: var(--radius-m);
+  .timeline-banner {
+    background: #FDFBF7; /* Fond crème élégant inspiré du modèle */
+    border: 1px solid #EAE3D9;
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
     box-shadow: var(--shadow-card);
-    padding: 22px 24px;
   }
-  .parcours-card .step-number{
-    display: inline-flex;
-    align-items: center; justify-content: center;
-    width: 32px; height: 32px;
+
+  .timeline-banner-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #4A3B32;
+    margin-bottom: 35px;
+    font-family: Georgia, serif;
+  }
+
+  .timeline-horizontal {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+    max-width: 850px;
+    margin: 0 auto;
+    gap: 15px;
+  }
+
+  /* Ligne de connexion centrale */
+  .timeline-line {
+    position: absolute;
+    top: 35px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: #D9D0C3;
+    z-index: 1;
+  }
+
+  .timeline-node {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .timeline-icon-circle {
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
+    background: var(--white);
+    border: 2px solid #D9D0C3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+    transition: transform 0.2s ease;
+  }
+
+  .timeline-node:hover .timeline-icon-circle {
+    transform: translateY(-4px);
+    border-color: var(--edf-blue);
+  }
+
+  .timeline-tag {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8C7A6B;
+    margin-bottom: 6px;
+  }
+
+  .timeline-node-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #2C221E;
+    margin-bottom: 4px;
+    max-width: 200px;
+  }
+
+  .timeline-node-sub {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .timeline-node-badge {
+    display: inline-block;
+    margin-top: 8px;
     background: var(--edf-blue-pale);
     color: var(--edf-blue);
-    font-weight: 800;
-    margin-bottom: 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
   }
-  .parcours-card h3{ font-size: 1.1rem; margin-bottom: 8px; }
+
+  /* Style spécial pour la cible Master */
+  .timeline-node.target .timeline-icon-circle {
+    background: var(--edf-blue-dark);
+    color: var(--white);
+    border-color: var(--edf-blue-dark);
+  }
+  .timeline-node.target .timeline-node-title {
+    color: var(--edf-blue-dark);
+  }
 
   /* ==========================================================================
-     5. PAGE 3 — MISSIONS & ETUDE DE CAS EDF + SECTION EXCEL INTEGRÉE
+     5. PAGE 3 — MISSIONS & ETUDE DE CAS EDF
      ========================================================================== */
   .case-context-short {
     color: var(--muted);
@@ -283,7 +370,6 @@
     margin-top: 4px;
   }
 
-  /* Nouvelle section pour les captures Excel */
   .excel-dashboard-section {
     margin-top: 35px;
     background: #FAFBFD;
@@ -455,6 +541,10 @@
     .site-header { padding: 20px 15px; }
     nav.tabs button { padding: 8px 12px; font-size: 0.78rem; }
     .skills-columns { grid-template-columns: 1fr; }
+    
+    /* Adaptabilité mobile pour la timeline */
+    .timeline-horizontal { flex-direction: column; align-items: center; gap: 30px; }
+    .timeline-line { display: none; }
   }
 </style>
 </head>
@@ -470,11 +560,11 @@
     </div>
     <div class="nav-container">
       <nav class="tabs" role="tablist" aria-label="Navigation">
-        <button role="tab" aria-selected="true" class="active" data-target="page-qui-suis-je">Qui suis-je ?</button>
-        <button role="tab" aria-selected="false" data-target="page-parcours">Mon parcours</button>
-        <button role="tab" aria-selected="false" data-target="page-missions">Missions EDF</button>
-        <button role="tab" aria-selected="false" data-target="page-competences">Compétences</button>
-        <button role="tab" aria-selected="false" data-target="page-projet">Projet Pro</button>
+        <button role="tab" aria-selected="true" class="active" data-target="page-qui-suis-je">1. Qui suis-je ?</button>
+        <button role="tab" aria-selected="false" data-target="page-parcours">2. Mon parcours</button>
+        <button role="tab" aria-selected="false" data-target="page-missions">3. Missions EDF</button>
+        <button role="tab" aria-selected="false" data-target="page-competences">4. Compétences</button>
+        <button role="tab" aria-selected="false" data-target="page-projet">5. Projet Pro</button>
       </nav>
     </div>
   </header>
@@ -492,7 +582,8 @@
             <h2>Paul Bouillot, 21 ans</h2>
             <p class="subtitle">BUT TC — Alternant Chargé d’Appui Commercial B2B chez EDF</p>
             <p class="bio">
-             Bienvenue sur mon espace digital. Une immersion dans mon univers professionnel : parcours, compétences et bilan.
+              Un profil hybride associant aisance relationnelle en milieu de négociation B2B et forte rigueur analytique. 
+              Passionné par les modèles de performance et les données chiffrées.
             </p>
             
             <div class="jobs-grid">
@@ -513,33 +604,47 @@
     </section>
 
     <!-- ==========================================================================
-         PAGE 2 — MON PARCOURS
+         PAGE 2 — MON PARCOURS (TIMELINE FRISE CHRONOLOGIQUE)
          ========================================================================== -->
     <section id="page-parcours" class="page">
-      <span class="eyebrow">Trajectoire</span>
-      <div class="parcours-grid">
-        <article class="parcours-card">
-          <span class="step-number">1</span>
-          <h3>Le BUT TC</h3>
-          <p>Bases solides en négociation B2B, gestion de projet et analyse financière.</p>
-        </article>
+      <div class="timeline-banner">
+        <div class="timeline-banner-title">Mon histoire, mon parcours</div>
+        
+        <div class="timeline-horizontal">
+          <div class="timeline-line"></div>
+          
+          <!-- ÉTAPE 1 : ORIGINE -->
+          <div class="timeline-node">
+            <div class="timeline-icon-circle">🏫</div>
+            <div class="timeline-tag">Origine</div>
+            <div class="timeline-node-title">Lycée Général</div>
+            <div class="timeline-node-sub">Pontus de Tyard</div>
+            <div class="timeline-node-sub">Chalon-sur-Saône</div>
+          </div>
 
-        <article class="parcours-card">
-          <span class="step-number">2</span>
-          <h3>L'alternance EDF</h3>
-          <p>Immersion au cœur de processus énergétiques complexes. Rigueur en environnement international et pilotage de projet commercial.</p>
-        </article>
+          <!-- ÉTAPE 2 : ACTUELLEMENT -->
+          <div class="timeline-node">
+            <div class="timeline-icon-circle">🎓</div>
+            <div class="timeline-tag">Actuellement</div>
+            <div class="timeline-node-title">BUT Tech de Co</div>
+            <div class="timeline-node-sub">IUT Lyon 1</div>
+            <div class="timeline-node-badge">⚡ Alternance EDF</div>
+          </div>
 
-        <article class="parcours-card">
-          <span class="step-number">3</span>
-          <h3>Le Déclic Finance</h3>
-          <p>Le pilotage de campagnes contractuelles chiffrées a confirmé ma volonté de m'orienter vers la finance d'entreprise.</p>
-        </article>
+          <!-- ÉTAPE 3 : RENTRÉE 2026 -->
+          <div class="timeline-node target">
+            <div class="timeline-icon-circle">🏛️</div>
+            <div class="timeline-tag" style="color: var(--edf-blue);">Rentrée 2026</div>
+            <div class="timeline-node-title">Master Ingénierie Financière</div>
+            <div class="timeline-node-sub">& Finance d'Entreprise</div>
+            <div class="timeline-node-badge" style="background: var(--edf-blue-dark); color: white;">IAE Annecy</div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ==========================================================================
-         PAGE 3 — MISSIONS & ÉTUDE DE CAS EDF (Avec intégration de tes graphiques Excel)
+         PAGE 3 — MISSIONS & ÉTUDE DE CAS EDF
          ========================================================================== -->
     <section id="page-missions" class="page">
       <span class="eyebrow">EDF B2B</span>
@@ -570,17 +675,15 @@
           </div>
         </div>
 
-        <!-- NOUVELLE GALERIE : TES CAPTURES EXCEL TABLEAU DE BORD -->
+        <!-- TES CAPTURES EXCEL TABLEAU DE BORD -->
         <div class="excel-dashboard-section">
           <h3>📊 Livrable : Tableaux de bord de suivi du projet pilote (Excel)</h3>
           <div class="excel-grid">
-            <!-- Image Principale du Haut -->
             <div class="excel-img-box">
               <img src="Image1.png" alt="Tableau de bord Global Renego MT">
               <div class="excel-caption">Vue macro : Suivi de l'objectif de 65% de transformation (718 288 €) et montants signés en direct</div>
             </div>
             
-            <!-- Deux Images du bas côte à côte -->
             <div class="excel-row-top">
               <div class="excel-img-box">
                 <img src="Image2.png" alt="Préparation et statut des contrats">
