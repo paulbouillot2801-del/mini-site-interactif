@@ -372,6 +372,37 @@
   .timeline-node.target .timeline-tag{ color: var(--edf-blue); }
   .timeline-node.target .timeline-node-badge{ background: var(--edf-blue-dark); color: var(--white); }
 
+  .parcours-detail-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+    margin-top: 46px;
+    text-align: left;
+  }
+  .parcours-detail-card{
+    background: var(--gray-bg);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-m);
+    padding: 20px 22px;
+    transition: transform 0.3s var(--ease), box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .parcours-detail-card:hover{ transform: translateY(-5px); box-shadow: var(--shadow-hover); border-color: var(--edf-blue); }
+  .parcours-detail-card.target{ background: var(--edf-blue-pale); border-color: var(--edf-blue); }
+  .detail-label{
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--edf-blue);
+    margin-bottom: 12px;
+  }
+  .detail-takeaway{
+    font-size: 0.87rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 14px;
+  }
+
   /* ==========================================================================
      5. PAGE 3 — MISSIONS & ÉTUDE DE CAS EDF
      ========================================================================== */
@@ -696,6 +727,36 @@
             <div class="timeline-node-title">Master Ingénierie Financière</div>
             <div class="timeline-node-sub">&amp; Finance d'Entreprise</div>
             <div class="timeline-node-badge">IAE Annecy</div>
+          </div>
+        </div>
+
+        <div class="parcours-detail-grid">
+          <div class="parcours-detail-card reveal">
+            <div class="detail-label">Lycée — Spécialités</div>
+            <div class="chip-group">
+              <span class="chip outline">Mathématiques</span>
+              <span class="chip outline">SES</span>
+            </div>
+            <p class="detail-takeaway">Une culture économique et un vrai attrait pour la donnée et le chiffre.</p>
+          </div>
+
+          <div class="parcours-detail-card reveal">
+            <div class="detail-label">BUT TC — Expériences terrain</div>
+            <div class="chip-group">
+              <span class="chip outline">Stage n°1 · Vente</span>
+              <span class="chip outline">Stage n°2 · Développement commercial</span>
+              <span class="chip outline">Alternance · Chargé d'appui commercial</span>
+            </div>
+            <p class="detail-takeaway">Négociation, communication, aisance relationnelle, esprit d'analyse et comptabilité générale.</p>
+          </div>
+
+          <div class="parcours-detail-card target reveal">
+            <div class="detail-label">Master — Prochaine étape</div>
+            <div class="chip-group">
+              <span class="chip">Comptabilité approfondie</span>
+              <span class="chip">Ingénierie financière</span>
+            </div>
+            <p class="detail-takeaway">Techniciser mes compétences pour piloter la performance financière.</p>
           </div>
         </div>
       </div>
