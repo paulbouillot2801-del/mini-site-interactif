@@ -429,8 +429,21 @@
   }
 
   /* ==========================================================================
-     5. PAGE 3 — MISSIONS & ÉTUDE DE CAS EDF
+     5. PAGE 3 — ÉTUDES DE CAS
      ========================================================================== */
+  .case-label{
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--edf-blue);
+    background: var(--edf-blue-pale);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
   .case-context-short{
     color: var(--muted);
     font-size: 0.98rem;
@@ -439,6 +452,83 @@
     padding-left: 16px;
   }
   .case-context-short strong{ color: var(--ink); }
+
+  .case2-block{
+    padding-top: 28px;
+    margin-top: 28px;
+    border-top: 1px solid var(--gray-line);
+  }
+  .case2-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .case2-header h3{ font-size: 1.02rem; }
+
+  .grade-badge{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--edf-blue-dark);
+    color: var(--white);
+    border-radius: var(--radius-s);
+    padding: 10px 18px;
+    min-width: 168px;
+    text-align: center;
+  }
+  .grade-value{ font-size: 1.3rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .grade-caption{
+    font-size: 0.7rem; font-weight: 600; color: #C7DAF0;
+    margin-top: 2px; text-transform: uppercase; letter-spacing: 0.03em;
+  }
+
+  .case2-list{
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .case2-list li{
+    background: var(--gray-bg);
+    border: 1px solid var(--gray-line);
+    border-radius: var(--radius-s);
+    padding: 11px 14px 11px 32px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--ink);
+    position: relative;
+  }
+  .case2-list li::before{
+    content: "✓";
+    position: absolute;
+    left: 12px;
+    color: var(--edf-blue);
+    font-weight: 800;
+  }
+
+  .professor-quote{
+    margin: 0;
+    border-left: 4px solid var(--edf-blue);
+    background: var(--edf-blue-pale);
+    border-radius: 0 var(--radius-s) var(--radius-s) 0;
+    padding: 16px 20px;
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--edf-blue-dark);
+  }
+  .professor-quote .quote-author{
+    display: block;
+    margin-top: 8px;
+    font-style: normal;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
 
   .mini-kpi-row{
     display: grid;
@@ -474,8 +564,7 @@
     font-size: 1.1rem;
     margin-bottom: 18px;
   }
-  .excel-grid{ display: grid; grid-template-columns: 1fr; gap: 20px; }
-  .excel-row-top{ display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .excel-grid{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
   .excel-img-box{
     background: var(--white);
     border: 1px solid var(--gray-line);
@@ -486,9 +575,9 @@
     transition: box-shadow 0.3s ease, transform 0.3s var(--ease);
   }
   .excel-img-box:hover{ box-shadow: var(--shadow-hover); transform: translateY(-4px); }
-  .excel-img-box .img-frame{ overflow: hidden; border-radius: 4px; }
+  .excel-img-box .img-frame{ overflow: hidden; border-radius: 4px; height: 190px; }
   .excel-img-box img{
-    width: 100%; height: auto; display: block;
+    width: 100%; height: 100%; display: block; object-fit: cover;
     transition: transform 0.5s var(--ease);
   }
   .excel-img-box:hover img{ transform: scale(1.05); }
@@ -613,7 +702,7 @@
       <span class="tab-indicator" id="tabIndicator"></span>
       <button role="tab" aria-selected="true" class="active" data-target="page-qui-suis-je">Qui suis-je ?</button>
       <button role="tab" aria-selected="false" data-target="page-parcours">Mon parcours</button>
-      <button role="tab" aria-selected="false" data-target="page-missions">Missions EDF</button>
+      <button role="tab" aria-selected="false" data-target="page-missions">Études de cas</button>
       <button role="tab" aria-selected="false" data-target="page-competences">Compétences</button>
     </nav>
   </div>
@@ -755,10 +844,11 @@
          PAGE 3 — MISSIONS & ÉTUDE DE CAS EDF
          ========================================================================== -->
     <section id="page-missions" class="page">
-      <span class="eyebrow reveal">EDF · B2B</span>
+      <span class="eyebrow reveal">Études de cas</span>
 
       <div class="card reveal">
-        <h2>Étude de cas : campagne pilote de renégociation maintenance</h2>
+        <div class="case-label">Cas n°1</div>
+        <h2>Campagne pilote de renégociation maintenance — EDF</h2>
         <p class="case-context-short">
           Pilotage d'un an de la renégociation de <strong>87 contrats</strong> de maintenance de transformateurs
           haute tension, de l'extraction des données jusqu'à la signature client.
@@ -790,16 +880,13 @@
               <div class="img-frame"><img src="Image1.png" alt="Tableau de bord global de la renégociation"></div>
               <div class="excel-caption">Suivi en direct de l'objectif 65 %</div>
             </div>
-
-            <div class="excel-row-top">
-              <div class="excel-img-box reveal">
-                <div class="img-frame"><img src="Image2.png" alt="Statut des contrats"></div>
-                <div class="excel-caption">Contrats remis vs signés (38 signatures)</div>
-              </div>
-              <div class="excel-img-box reveal">
-                <div class="img-frame"><img src="Image3.png" alt="Dates d'effet des contrats"></div>
-                <div class="excel-caption">Planification selon les dates d'effet</div>
-              </div>
+            <div class="excel-img-box reveal">
+              <div class="img-frame"><img src="Image2.png" alt="Statut des contrats"></div>
+              <div class="excel-caption">Contrats remis vs signés (38 signatures)</div>
+            </div>
+            <div class="excel-img-box reveal">
+              <div class="img-frame"><img src="Image3.png" alt="Dates d'effet des contrats"></div>
+              <div class="excel-caption">Planification selon les dates d'effet</div>
             </div>
           </div>
         </div>
@@ -829,6 +916,50 @@
             <span class="step-title">6. Clôture des gestes métiers et reporting mensuel</span>
             <span class="status-dot done">Terminé</span>
           </div>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="case-label">Cas n°2</div>
+        <h2>Projets de groupe — Volet financier</h2>
+        <p class="case-context-short">
+          Deux réalisations financières menées en groupe (BUT TC), toutes deux notées meilleure copie
+          sur 8 équipes.
+        </p>
+
+        <div class="case2-block">
+          <div class="case2-header">
+            <h3>Réalisation n°1 — Projet de financement</h3>
+            <div class="grade-badge">
+              <span class="grade-value">15/20</span>
+              <span class="grade-caption">Meilleure note des 8 équipes</span>
+            </div>
+          </div>
+          <ul class="case2-list">
+            <li>Coûts fixes et variables du projet</li>
+            <li>Seuil de rentabilité du projet</li>
+            <li>Trésorerie prévisionnelle — années 1, 2 et 3</li>
+            <li>Coût du personnel</li>
+          </ul>
+          <blockquote class="professor-quote">
+            « [à compléter : verbatim exact du professeur] »
+            <span class="quote-author">— Professeur, module Finance</span>
+          </blockquote>
+        </div>
+
+        <div class="case2-block">
+          <div class="case2-header">
+            <h3>Réalisation n°2 — Plan de financement</h3>
+            <div class="grade-badge">
+              <span class="grade-value">16/20</span>
+              <span class="grade-caption">Meilleure note des 8 groupes</span>
+            </div>
+          </div>
+          <ul class="case2-list">
+            <li>Compte de résultat prévisionnel</li>
+            <li>Bilan prévisionnel</li>
+            <li>Plan de trésorerie</li>
+          </ul>
         </div>
       </div>
     </section>
